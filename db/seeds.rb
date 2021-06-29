@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+puts "Clearing existing data..."
+User.destroy_all
+
+puts "Inserting data..."
+user = User.create(username: "David");
+
+puts "Done."
