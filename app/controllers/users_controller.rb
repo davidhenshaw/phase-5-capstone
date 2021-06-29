@@ -7,5 +7,14 @@ class UsersController < ApplicationController
         user = User.find(params[:id])
         render json: user
     end
+
+    def update
+        user = User.find(params[:id])
+
+        user.update(avatar: params[:avatar])
+        user.save
+
+        render json: user
+    end
     
 end
