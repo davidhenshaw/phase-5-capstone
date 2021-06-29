@@ -43,7 +43,7 @@ function App() {
       </form>
       {
         base64Img ?
-        <img src={"data:image/png;base64," + base64Img}/>
+        <img width="800" height="auto" src={"data:image/png;base64," + base64Img}/>
         :
         null
       }
