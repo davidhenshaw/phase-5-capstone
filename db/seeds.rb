@@ -21,7 +21,7 @@ puts "Generating users..."
     password = Faker::Internet.password(8)
     email = Faker::Internet.safe_email(first_name)
 
-    user = User.create(display_name: display_name, username: username, password: password, email: email)
+    user = User.create(display_name: display_name, username: username, password_digest: password, email: email)
 end
 
 puts "Done."
