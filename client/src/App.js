@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { React, useEffect, useState} from 'react';
 import axios from 'axios';
+import Markdown from 'markdown-to-jsx';
 
 function App() {
 
@@ -68,6 +69,10 @@ function App() {
         :
         null
       }
+      <Markdown># Hello world!</Markdown>
+      <Markdown>
+        {"+ item1\n+ item2\n\t+ item2b\n+ item3"}
+      </Markdown>
       {
         users ? 
         displayUsers(users)
