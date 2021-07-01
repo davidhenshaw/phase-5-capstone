@@ -30,13 +30,13 @@ function SignupForm() {
         if (types)
         {
             return Object.keys(user).map( (key, idx) => 
-                <input type={types[idx]} placeholder={key.split("_").join(" ")} name={key} value={user[key]} onChange={handleChange} /> 
+                <input type={types[idx]} placeholder={key.split("_").join(" ")} name={key} value={user[key]} onChange={handleChange} key={idx} /> 
             )
         }
         else
         {
-            return Object.keys(user).map( (key) => 
-                <input placeholder={key.toUpperCase()} name={key} value={user[key]} onChange={handleChange} /> 
+            return Object.keys(user).map( (key, idx) => 
+                <input placeholder={key.toUpperCase()} name={key} value={user[key]} onChange={handleChange} key={idx} /> 
             )
         }
     }
@@ -44,6 +44,9 @@ function SignupForm() {
     function handleSubmit(evt)
     {
         evt.preventDefault();
+
+        axios.post("/users", user)
+        .then( console.log )
     }
 
     return(
