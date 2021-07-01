@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 
 import SignupForm from './components/SignupForm';
+import LoginForm from './components/LoginForm';
 
 function App() {
   return (
@@ -16,8 +17,11 @@ function App() {
       <Router>
 
         <Switch>
-          <Route path="/">
+          <Route path="/signup">
             <SignupForm />
+          </Route>
+          <Route path="/">
+            <LoginForm />
           </Route>
         </Switch>
       </Router>

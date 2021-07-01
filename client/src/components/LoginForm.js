@@ -35,8 +35,9 @@ function LoginForm() {
     function handleSubmit(evt)
     {
         evt.preventDefault();
+        let payload = {user: user}
 
-        axios.get("/login", user)
+        axios.post("/login", payload)
         .then( console.log )
     }
 

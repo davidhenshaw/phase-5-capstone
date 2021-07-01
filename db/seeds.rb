@@ -11,6 +11,7 @@ puts "Clearing existing data..."
 User.destroy_all
 
 puts "Generating users..."
+passwords = ["wordpass", "asswordpay", "wordymcpass", "paswad", "motdepasse"]
 
 5.times do |i|
     display_name = Faker::Name.name
@@ -18,7 +19,7 @@ puts "Generating users..."
     last_name = display_name.split(/[ -.]/).last
     
     username = Faker::Internet.user_name(display_name, %w(. _ -) )
-    password = Faker::Internet.password(8)
+    password = "admin"
     email = Faker::Internet.safe_email(first_name)
 
     user = User.create(display_name: display_name, username: username, password_digest: password, email: email)
