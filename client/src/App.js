@@ -8,14 +8,16 @@ import {
   Link
 } from "react-router-dom";
 
+import SignupForm from './components/SignupForm';
+
 function App() {
   return (
     <div className="App">
       <Router>
 
         <Switch>
-          <Route path="/signup">
-            
+          <Route path="/">
+            <SignupForm />
           </Route>
         </Switch>
       </Router>
