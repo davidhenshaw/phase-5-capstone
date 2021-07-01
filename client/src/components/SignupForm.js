@@ -58,6 +58,7 @@ function SignupForm() {
               <input placeholder="Display Name" name="display_name" value={user.display_name} onChange={handleChange} />  */}
               {generateFields(["text", "password","text", "text"])}
               <button>Sign Up!</button>
+              <p>Already have an account? <a href={"/login"}>Log In!</a> </p>
           </form>
     )
 }
