@@ -1,17 +1,21 @@
 import React from "react";
 import { useState } from 'react';
 import axios from 'axios'
+import { useHistory } from "react-router";
 
-function LoginForm() {
-    const [user, setUser] = useState({
+function LoginForm(props) {
+    let { onLogin } = props;
+    let history = useHistory();
+    const [userLogin, setUserLogin] = useState({
         username: "",
         password: "",
     })
 
+
     function handleChange(evt)
     {
-        setUser({
-            ...user,
+        setUserLogin({
+            ...userLogin,
             [evt.target.name]: evt.target.value
         })
     }
@@ -20,14 +24,14 @@ function LoginForm() {
     {
         if (types)
         {
-            return Object.keys(user).map( (key, idx) => 
-                <input type={types[idx]} placeholder={key.split("_").join(" ")} name={key} value={user[key]} onChange={handleChange} key={idx} /> 
+            return Object.keys(userLogin).map( (key, idx) => 
+                <input type={types[idx]} placeholder={key.split("_").join(" ")} name={key} value={userLogin[key]} onChange={handleChange} key={idx} /> 
             )
         }
         else
         {
-            return Object.keys(user).map( (key, idx) => 
-                <input placeholder={key.toUpperCase()} name={key} value={user[key]} onChange={handleChange} key={idx} /> 
+            return Object.keys(userLogin).map( (key, idx) => 
+                <input placeholder={key.toUpperCase()} name={key} value={userLogin[key]} onChange={handleChange} key={idx} /> 
             )
         }
     }
@@ -35,10 +39,14 @@ function LoginForm() {
     function handleSubmit(evt)
     {
         evt.preventDefault();
-        let payload = {user: user}
+        let payload = {user: userLogin}
 
         axios.post("/login", payload)
-        .then( console.log )
+        .then( res => {
+            localStorage.token = res.data.jwt
+            onLogin( res.data.user )
+            history.push("/")
+        } )
     }
 
     return(

@@ -1,5 +1,5 @@
 class AuthController < ApplicationController
-    skip_before_action :authorized, only: [:create]
+    skip_before_action :authorized, only: [:create, :auto_login]
 
     #from /login
     def create
@@ -12,6 +12,13 @@ class AuthController < ApplicationController
         else
             render json: {message: 'Invalid username or password'}, status: :unauthorized
         end
+    end
+
+    def auto_login
+        @token = params[:token]
+
+        user = User.find(JWT.decode(@token, "secret password", true, algorithm: 'HS256')[0]['user_id'])
+        render json: user
     end
 
     private

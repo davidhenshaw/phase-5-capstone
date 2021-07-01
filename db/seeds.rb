@@ -22,7 +22,7 @@ passwords = ["wordpass", "asswordpay", "wordymcpass", "paswad", "motdepasse"]
     password = "admin"
     email = Faker::Internet.safe_email(first_name)
 
-    user = User.create(display_name: display_name, username: username, password_digest: password, email: email)
+    user = User.create(display_name: display_name, username: username, password: password, email: email)
 end
 
 puts "Done."
