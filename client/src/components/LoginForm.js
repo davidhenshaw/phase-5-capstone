@@ -6,6 +6,8 @@ import { useHistory } from "react-router";
 // import Button from '@material-ui/core/Button';
 import { Box, Container, TextField, Button } from "@material-ui/core";
 
+import style from "../common/styles/form.module.css";
+
 function LoginForm(props) {
     let { onLogin } = props;
     let history = useHistory();
@@ -54,7 +56,7 @@ function LoginForm(props) {
 
     return(
         <Box color="primary">
-          <form onSubmit={handleSubmit} className="form-inline">
+          <form onSubmit={handleSubmit} className={style["form-inline"]}>
             {generateFields(["text", "password"])}
             <Button type="submit" variant="contained">
                 Log In!
