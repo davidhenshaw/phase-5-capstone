@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :posts
   resources :users
   post "/login", to: "auth#create"
   post "/auto_login", to: "auth#auto_login"
