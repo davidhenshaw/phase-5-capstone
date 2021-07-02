@@ -1,6 +1,11 @@
-import style from './../common/styles/form.module.css';
-import React, { useEffect, useState } from "react";
+import style from './../common/styles/post.module.css';
+import { 
+    Card, 
+    Typography,
+    Container
+} from '@material-ui/core';
 
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
 function PostFeed(props)
@@ -15,7 +20,7 @@ function PostFeed(props)
       },[]);
 
     return(
-        <div>
+        <div className={style["post-container"]}>
             {posts.map( (post, idx) => <PostCard key={idx} post={post}/> )}
         </div>
     )
@@ -23,13 +28,16 @@ function PostFeed(props)
 
 function PostCard(props)
 {
-    let { post } = props
+    let { post } = props;
+    let { avatar, username } = post.user;
     return(
-        <div>
-            <h1>{post.header}</h1>
-            <h2></h2>
+        <Card raised={true} className={style["post-card"]}>
+            <Container component="div">
+                <Typography variant="h4" component="h1">{post.header}</Typography>
+                <Typography display="inline" variant="subtitle1" component="h2">{post.user.username}</Typography>
+            </Container>
             <p>{post.message}</p>
-        </div>
+        </Card>
     )
 }
 
