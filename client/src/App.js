@@ -41,6 +41,7 @@ function App() {
         <Switch>
           <Route path="/signup">
             <div className="Form-page">
+              <SignupHeader />
               <SignupForm />
             </div>
           </Route>
@@ -77,4 +78,12 @@ function LoginHeader()
   )
 }
 
+function SignupHeader()
+{
+  return(
+    <div className="form-header">
+      <h1>Create an account!</h1>
+    </div>
+  )
+}
 export default App;
