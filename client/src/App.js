@@ -9,6 +9,7 @@ import {
 
 import SignupPage from './containers/SignupPage';
 import LoginPage from './containers/LoginPage';
+import PostFeed from './containers/PostFeed';
 import axios from 'axios';
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
               :
               <h1>Welcome! Please <a href="/login">log in.</a></h1>
             }
+            <PostFeed />
           </Route>
         </Switch>
       </Router>
