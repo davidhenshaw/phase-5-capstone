@@ -7,13 +7,19 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 
+# Configs
+num_users = 5
+post_per_user = 2
+#################
+users = []
+
 puts "Clearing existing data..."
 User.destroy_all
 
 puts "Generating users..."
 passwords = ["wordpass", "asswordpay", "wordymcpass", "paswad", "motdepasse"]
 
-5.times do |i|
+num_users.times do |i|
     display_name = Faker::Name.name
     first_name = display_name.split(/[ -.]/).first
     last_name = display_name.split(/[ -.]/).last
@@ -23,6 +29,18 @@ passwords = ["wordpass", "asswordpay", "wordymcpass", "paswad", "motdepasse"]
     email = Faker::Internet.safe_email(first_name)
 
     user = User.create(display_name: display_name, username: username, password: password, email: email)
+    users << user;
+end
+
+puts "Generating posts..."
+num_users.times do |i|
+    post_params = {
+        user_id: users[i].id,
+        header: "Test",
+        message: "This is a message.\nA test message."
+    }
+
+    post = Post.create(post_params)
 end
 
 puts "Done."

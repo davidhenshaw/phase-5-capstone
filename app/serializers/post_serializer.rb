@@ -1,3 +1,3 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :project, :header, :message
 end
