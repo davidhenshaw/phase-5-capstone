@@ -1,4 +1,4 @@
-.Form-page{
+.form-page{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,12 +22,13 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 25px;
     border: 5px solid #282c34 ;
   }
   
   .form-column-input{
-    padding: 20px 5px;
+    padding: 15px 15px;
     width: 90%;
   }
   

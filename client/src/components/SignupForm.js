@@ -3,6 +3,8 @@ import { useState } from 'react';
 import axios from 'axios'
 import { Box, Container, TextField, Button } from "@material-ui/core";
 
+import style from './../common/styles/form.module.css'
+
 function SignupForm() {
     const [user, setUser] = useState({
         username: "",
@@ -26,16 +28,16 @@ function SignupForm() {
         if (types)
         {
             return Object.keys(user).map( (key, idx) => 
-                <div className='form-column-input'>
-                    <TextField className="form-column-input" type={types[idx]} placeholder={key.split("_").join(" ")} name={key} value={user[key]} onChange={handleChange} key={idx} /> 
+                <div className={style['form-column-input']}> 
+                    <TextField className={style['form-column-input']} type={types[idx]} placeholder={key.split("_").join(" ")} name={key} value={user[key]} onChange={handleChange} key={idx} /> 
                 </div>
             )
         }
         else
         {
             return Object.keys(user).map( (key, idx) =>
-                <div className='form-column-input'> 
-                    <TextField className="form-column-input" placeholder={key.toUpperCase()} name={key} value={user[key]} onChange={handleChange} key={idx} /> 
+                <div className={style['form-column-input']}> 
+                    <TextField className={style['form-column-input']} placeholder={key.toUpperCase()} name={key} value={user[key]} onChange={handleChange} key={idx} /> 
                 </div>
             )
         }
@@ -61,7 +63,7 @@ function SignupForm() {
 
     return(
         <Box variant="color">
-          <form onSubmit={handleSubmit} className="form-column">
+          <form onSubmit={handleSubmit} className={style["form-column"]}>
               {/* <input placeholder="Username" name="username" value={user.username} onChange={handleChange} /> 
               <input type="password" placeholder="Password" name="password" value={user.password} onChange={handleChange} /> 
               <input type="password" placeholder="Re-type password" name="password" value={retypePasswd} onChange={handlePasswordChange} /> 

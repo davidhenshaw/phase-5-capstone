@@ -7,8 +7,8 @@ import {
   Link,
 } from "react-router-dom";
 
-import SignupForm from './components/SignupForm';
-import LoginForm from './components/LoginForm';
+import SignupPage from './containers/SignupPage';
+import LoginPage from './containers/LoginPage';
 import axios from 'axios';
 
 function App() {
@@ -40,15 +40,11 @@ function App() {
   
         <Switch>
           <Route path="/signup">
-            <div className="Form-page">
-              <SignupHeader />
-              <SignupForm />
-            </div>
+            <SignupPage />
           </Route>
           <Route path="/login">
             <div className="Form-page">
-              <LoginHeader />
-              <LoginForm onLogin={handleLogin} />
+              <LoginPage onLogin={handleLogin} />
             </div>
           </Route>
           <Route path="/">
