@@ -50,7 +50,7 @@ function SignupForm() {
     }
 
     return(
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="form-column">
               {/* <input placeholder="Username" name="username" value={user.username} onChange={handleChange} /> 
               <input type="password" placeholder="Password" name="password" value={user.password} onChange={handleChange} /> 
               <input type="password" placeholder="Re-type password" name="password" value={retypePasswd} onChange={handlePasswordChange} /> 

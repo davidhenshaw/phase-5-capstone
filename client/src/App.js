@@ -40,10 +40,15 @@ function App() {
   
         <Switch>
           <Route path="/signup">
-            <SignupForm />
+            <div className="Form-page">
+              <SignupForm />
+            </div>
           </Route>
           <Route path="/login">
-            <LoginForm onLogin={handleLogin} />
+            <div className="Form-page">
+              <LoginHeader />
+              <LoginForm onLogin={handleLogin} />
+            </div>
           </Route>
           <Route path="/">
             {
@@ -60,6 +65,16 @@ function App() {
       </Router>
     </div>
   );
+}
+
+function LoginHeader()
+{
+  return(
+    <div className="form-header">
+      <h1>Welcome to Go-Lab!</h1>
+      <h2>Let's get started!</h2>
+    </div>
+  )
 }
 
 export default App;

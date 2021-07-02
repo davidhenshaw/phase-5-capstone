@@ -2,6 +2,42 @@
   text-align: center;
 }
 
+.Form-page{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-width: 5px;
+  margin: 25px;
+  height: 90vh;
+  width: auto;
+}
+
+.form-inline{
+  width: 40vmax;
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+}
+
+.form-column{
+  height: 40vmax;
+  width: 30vmax;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 10px;
+}
+
+.form-header{
+  font-family: "Roboto";
+}
+
+.form-header h1 {
+  font-size: 72pt;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

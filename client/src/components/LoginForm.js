@@ -2,6 +2,9 @@ import React from "react";
 import { useState } from 'react';
 import axios from 'axios'
 import { useHistory } from "react-router";
+// import TextField from '@material-ui/core/TextField';
+// import Button from '@material-ui/core/Button';
+import { Box, Container, TextField, Button } from "@material-ui/core";
 
 function LoginForm(props) {
     let { onLogin } = props;
@@ -25,13 +28,13 @@ function LoginForm(props) {
         if (types)
         {
             return Object.keys(userLogin).map( (key, idx) => 
-                <input type={types[idx]} placeholder={key.split("_").join(" ")} name={key} value={userLogin[key]} onChange={handleChange} key={idx} /> 
+                <TextField type={types[idx]} placeholder={key.split("_").join(" ")} name={key} value={userLogin[key]} onChange={handleChange} key={idx} /> 
             )
         }
         else
         {
             return Object.keys(userLogin).map( (key, idx) => 
-                <input placeholder={key.toUpperCase()} name={key} value={userLogin[key]} onChange={handleChange} key={idx} /> 
+                <TextField placeholder={key.toUpperCase()} name={key} value={userLogin[key]} onChange={handleChange} key={idx} /> 
             )
         }
     }
@@ -50,11 +53,15 @@ function LoginForm(props) {
     }
 
     return(
-          <form onSubmit={handleSubmit}>
-              {generateFields(["text", "password"])}
-              <button>Log In!</button>
-              <p>Don't have an account? <a href={"/signup"}>Sign Up!</a> </p>
+        <Box color="primary">
+          <form onSubmit={handleSubmit} className="form-inline">
+            {generateFields(["text", "password"])}
+            <Button type="submit" variant="contained">
+                Log In!
+            </Button>
           </form>
+              <p>Don't have an account? <a href={"/signup"}>Sign Up!</a> </p>
+        </Box>
     )
 }
 
