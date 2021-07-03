@@ -11,6 +11,7 @@ import SignupPage from './containers/SignupPage';
 import LoginPage from './containers/LoginPage';
 import PostFeed from './containers/PostFeed';
 import axios from 'axios';
+import PostFormContainer from './containers/PostFormContainer';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -58,6 +59,7 @@ function App() {
               :
               <h1>Welcome! Please <a href="/login">log in.</a></h1>
             }
+            <PostFormContainer />
             <PostFeed />
           </Route>
         </Switch>
