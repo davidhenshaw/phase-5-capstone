@@ -4,6 +4,10 @@
     margin: 50px;
 }
 
+.post-card p {
+    white-space: pre-wrap;
+}
+
 .post-container {
     display:flex;
     flex-direction: column;

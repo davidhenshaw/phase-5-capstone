@@ -8,6 +8,8 @@ import {
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
+import PostForm from './../components/PostForm.js';
+
 function PostFeed(props)
 {
     let { user } = props;
@@ -19,9 +21,15 @@ function PostFeed(props)
     
       },[]);
 
+    function handleSubmitSuccess(post)
+    {
+        setPosts([...posts, post]);
+    }
+
     return(
         <div className={style["post-container"]}>
-            {posts.map( (post, idx) => <PostCard key={idx} post={post}/> )}
+            <PostForm onSubmitSuccess={handleSubmitSuccess} />
+            {posts.map( (post, idx) => <PostCard key={idx} post={post}/> ).reverse()}
         </div>
     )
 }
@@ -34,7 +42,7 @@ function PostCard(props)
         <Card raised={true} className={style["post-card"]}>
             <Container component="div">
                 <Typography variant="h4" component="h1">{post.header}</Typography>
-                <Typography display="inline" variant="subtitle1" component="h2">{post.user.username}</Typography>
+                <Typography display="inline" variant="h6" component="h2">{post.user.username}</Typography>
             </Container>
             <p>{post.message}</p>
         </Card>
