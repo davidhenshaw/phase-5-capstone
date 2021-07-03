@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :projects
+  resources :categories
   resources :posts
   resources :users
   post "/login", to: "auth#create"
