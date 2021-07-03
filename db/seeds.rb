@@ -15,7 +15,6 @@ num_users = 5
 post_per_user = 2
 num_categories = 5
 num_projects = 5
-members_per_team = 2
 #################
 users = []
 categories = []
@@ -77,19 +76,15 @@ num_projects.times do |i|
     projects << project
 end
 
-puts "Populating projects with members..."
+puts "Populating projects with a member..."
 num_projects.times do |i|
-    members_per_team.times do
-        random_user = users[prng.rand(num_users)]
-        member_params = {
-            user_id: random_user.id,
-            project_id: projects[i].id,
-        }
+    random_user = users[prng.rand(num_users)]
+    member_params = {
+        user_id: random_user.id,
+        project_id: projects[i].id,
+    }
 
-        member = Member.create!(member_params)
-        members << member
-    end
+    member = Member.create!(member_params)
+    members << member
 end
-
-
 puts "Done."
