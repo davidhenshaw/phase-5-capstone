@@ -79,14 +79,16 @@ end
 
 puts "Populating projects with members..."
 num_projects.times do |i|
-    random_user = users[prng.rand(num_users)]
-    member_params = {
-        user_id: random_user.id,
-        project_id: projects[i].id,
-    }
+    members_per_team.times do
+        random_user = users[prng.rand(num_users)]
+        member_params = {
+            user_id: random_user.id,
+            project_id: projects[i].id,
+        }
 
-    member = Member.create!(member_params)
-    members << member
+        member = Member.create!(member_params)
+        members << member
+    end
 end
 
 
