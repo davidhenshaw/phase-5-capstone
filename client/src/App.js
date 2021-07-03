@@ -59,7 +59,7 @@ function App() {
               :
               <h1>Welcome! Please <a href="/login">log in.</a></h1>
             }
-            <PostFormContainer />
+            {/* <PostFormContainer /> */}
             <PostFeed />
           </Route>
         </Switch>

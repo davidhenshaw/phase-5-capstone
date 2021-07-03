@@ -1,8 +1,10 @@
 import style from './../common/styles/post.module.css';
 import { 
+    Button,
     Card, 
-    Typography,
-    Container
+    Container,
+    Collapse,
+    Typography
 } from '@material-ui/core';
 
 import React, { useEffect, useState } from "react";
@@ -14,6 +16,7 @@ function PostFeed(props)
 {
     let { user } = props;
     const [posts, setPosts] = useState([]);
+    const [formOpen, setFormOpen] = useState(false);
 
     useEffect( () => {
         axios.get("/posts")
@@ -26,9 +29,20 @@ function PostFeed(props)
         setPosts([...posts, post]);
     }
 
+    function toggleFormOpen()
+    {
+        setFormOpen((prev) => !prev);
+    }
+    
+
     return(
         <div className={style["post-container"]}>
-            <PostForm onSubmitSuccess={handleSubmitSuccess} />
+            <Button variant="outlined" onClick={toggleFormOpen}>Make a Post!</Button>
+            <Collapse 
+                in={formOpen}
+            >
+                <PostForm onSubmitSuccess={handleSubmitSuccess} />
+            </Collapse>
             {posts.map( (post, idx) => <PostCard key={idx} post={post}/> ).reverse()}
         </div>
     )
