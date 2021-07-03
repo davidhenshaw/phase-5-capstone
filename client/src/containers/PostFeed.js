@@ -34,15 +34,25 @@ function PostFeed(props)
         setFormOpen((prev) => !prev);
     }
     
-
-    return(
-        <div className={style["post-container"]}>
+    const postSection = (
+        <div>
             <Button variant="outlined" onClick={toggleFormOpen}>Make a Post!</Button>
             <Collapse 
                 in={formOpen}
             >
                 <PostForm onSubmitSuccess={handleSubmitSuccess} />
             </Collapse>
+        </div>
+    );
+
+    return(
+        <div className={style["post-container"]}>
+            {
+                user ? 
+                postSection
+                :
+                null
+            }
             {posts.map( (post, idx) => <PostCard key={idx} post={post}/> ).reverse()}
         </div>
     )

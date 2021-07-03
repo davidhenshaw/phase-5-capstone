@@ -13,7 +13,6 @@ function PostForm(props){
 
     function handleChange(evt)
     {
-
         let {name, value} = evt.target;
         setPost({
             ...post,
