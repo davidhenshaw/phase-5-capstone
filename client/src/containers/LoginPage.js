@@ -1,8 +1,7 @@
 import style from './../common/styles/form.module.css';
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import LoginForm from './../components/LoginForm';
-import axios from 'axios';
 
 function LoginPage(props)
 {

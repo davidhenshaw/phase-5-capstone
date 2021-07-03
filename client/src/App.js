@@ -4,14 +4,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
 } from "react-router-dom";
 
 import SignupPage from './containers/SignupPage';
 import LoginPage from './containers/LoginPage';
 import PostFeed from './containers/PostFeed';
 import axios from 'axios';
-import PostFormContainer from './containers/PostFormContainer';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -68,22 +66,4 @@ function App() {
   );
 }
 
-function LoginHeader()
-{
-  return(
-    <div className="form-header">
-      <h1>Welcome to Go-Lab!</h1>
-      <h2>Let's get started!</h2>
-    </div>
-  )
-}
-
-function SignupHeader()
-{
-  return(
-    <div className="form-header">
-      <h1>Create an account!</h1>
-    </div>
-  )
-}
 export default App;

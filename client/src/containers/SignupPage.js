@@ -1,8 +1,7 @@
 import style from './../common/styles/form.module.css';
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import SignupForm from './../components/SignupForm';
-import axios from 'axios';
 
 function SignupPage(props)
 {

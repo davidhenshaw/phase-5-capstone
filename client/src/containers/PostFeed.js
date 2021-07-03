@@ -63,7 +63,7 @@ function PostFeed(props)
 function PostCard(props)
 {
     let { post } = props;
-    let { avatar, username } = post.user;
+    // let { avatar, username } = post.user;
     return(
         <Card raised={true} className={style["post-card"]}>
             <Container component="div">
