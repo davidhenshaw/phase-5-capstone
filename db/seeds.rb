@@ -26,6 +26,7 @@ Category.destroy_all
 Project.destroy_all
 Member.destroy_all
 User.destroy_all
+Post.destroy_all
 
 puts "Generating users..."
 passwords = ["wordpass", "asswordpay", "wordymcpass", "paswad", "motdepasse"]
