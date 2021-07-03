@@ -35,7 +35,7 @@ function PostFeed(props)
     }
     
     const postSection = (
-        <div>
+        <div className={style["post-form-container"]}>
             <Button variant="outlined" onClick={toggleFormOpen}>Make a Post!</Button>
             <Collapse 
                 in={formOpen}
@@ -46,14 +46,16 @@ function PostFeed(props)
     );
 
     return(
-        <div className={style["post-container"]}>
+        <div className={style["post-feed"]}>
             {
                 user ? 
                 postSection
                 :
                 null
             }
-            {posts.map( (post, idx) => <PostCard key={idx} post={post}/> ).reverse()}
+            <div className={style["post-container"]}>
+                {posts.map( (post, idx) => <PostCard key={idx} post={post}/> ).reverse()}
+            </div>
         </div>
     )
 }

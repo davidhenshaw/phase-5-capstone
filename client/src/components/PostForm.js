@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from 'react';
 import axios from 'axios'
 import { Button, TextField } from "@material-ui/core";
+import style from './../common/styles/form.module.css';
 
 function PostForm(props){
     let { onSubmitSuccess } = props;
@@ -37,7 +38,7 @@ function PostForm(props){
     }
 
     return(
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={style["form-column-contained"]}>
             <TextField 
                 placeholder="Post Title" 
                 name="header" 
