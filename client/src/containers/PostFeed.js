@@ -17,11 +17,13 @@ function PostFeed(props)
     let { user } = props;
     const [posts, setPosts] = useState([]);
     const [formOpen, setFormOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect( () => {
         axios.get("/posts")
-        .then(res => setPosts(res.data))
-    
+        .then(res => 
+            setPosts(res.data));
+            setIsLoading(false);
       },[]);
 
     function handleSubmitSuccess(post)
@@ -36,7 +38,9 @@ function PostFeed(props)
     
     const postSection = (
         <div className={style["post-form-container"]}>
-            <Button variant="outlined" onClick={toggleFormOpen}>Make a Post!</Button>
+            <Button variant="outlined" onClick={toggleFormOpen}>
+                {formOpen ? "Close" : "Make a Post!"}
+            </Button>
             <Collapse 
                 in={formOpen}
             >
@@ -53,9 +57,15 @@ function PostFeed(props)
                 :
                 null
             }
-            <div className={style["post-container"]}>
-                {posts.map( (post, idx) => <PostCard key={idx} post={post}/> ).reverse()}
-            </div>
+            
+            {
+                isLoading ?
+                <h1>Loading...</h1>
+                :
+                <div className={style["post-container"]}>
+                    {posts.map( (post, idx) => <PostCard key={idx} post={post}/> ).reverse()}
+                </div>
+            }
         </div>
     )
 }

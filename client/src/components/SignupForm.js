@@ -13,6 +13,7 @@ function SignupForm() {
         email: "",
         display_name: ""
     })
+    const [isLoading, setIsLoading] = useState(false);
 
 
     function handleChange(evt)
@@ -51,14 +52,30 @@ function SignupForm() {
     function handleSubmit(evt)
     {
         evt.preventDefault();
+        setIsLoading(true);
 
         if( !passwordMatch() )
         {
             alert("Passwords do not match, please try again.")
+            return
         }
 
         axios.post("/users", user)
-        .then( console.log )
+        .then( res => { 
+            setIsLoading(false);
+            clearForm();
+        })
+    }
+
+    function clearForm()
+    {
+        setUser({
+            username: "",
+            password: "",
+            retype_password: "",
+            email: "",
+            display_name: ""
+        })
     }
 
     return(
@@ -70,7 +87,12 @@ function SignupForm() {
               <input placeholder="Email" name="email" value={user.email} onChange={handleChange} /> 
               <input placeholder="Display Name" name="display_name" value={user.display_name} onChange={handleChange} />  */}
               {generateFields(["text", "password", "password", "text", "text"])}
-              <Button type='submit' variant='contained'>Sign Up!</Button>
+              <Button
+                disabled={isLoading} 
+                type='submit' 
+                variant='contained'>
+                    Sign Up!
+                </Button>
               <p>Already have an account? <a href={"/login"}>Log In!</a> </p>
           </form>
         </Box>

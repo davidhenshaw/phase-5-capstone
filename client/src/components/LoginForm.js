@@ -15,6 +15,7 @@ function LoginForm(props) {
         username: "",
         password: "",
     })
+    const [isLoading, setIsLoading] = useState(false);
 
 
     function handleChange(evt)
@@ -44,12 +45,14 @@ function LoginForm(props) {
     function handleSubmit(evt)
     {
         evt.preventDefault();
+        setIsLoading(true);
         let payload = {user: userLogin}
 
         axios.post("/login", payload)
         .then( res => {
             localStorage.token = res.data.jwt
             onLogin( res.data.user )
+            setIsLoading( false );
             history.push("/")
         } )
     }
@@ -58,7 +61,11 @@ function LoginForm(props) {
         <Box color="primary">
           <form onSubmit={handleSubmit} className={style["form-inline"]}>
             {generateFields(["text", "password"])}
-            <Button type="submit" variant="contained">
+            <Button 
+                type="submit" 
+                variant="contained"
+                disabled={isLoading}
+                >
                 Log In!
             </Button>
           </form>

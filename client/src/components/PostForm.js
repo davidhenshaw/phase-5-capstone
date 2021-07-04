@@ -11,6 +11,8 @@ function PostForm(props){
         message: ""
     })
 
+    const [isLoading, setIsLoading] = useState(false);
+
 
     function handleChange(evt)
     {
@@ -24,6 +26,7 @@ function PostForm(props){
     function handleSubmit(evt)
     {
         evt.preventDefault();
+        setIsLoading(true);
 
         let config = {
             headers:{
@@ -34,7 +37,17 @@ function PostForm(props){
         axios.post("/posts", post, config)
         .then( (res) => {
             onSubmitSuccess(res.data);
+            setIsLoading(false);
+            clearForm();
         } )
+    }
+
+    function clearForm()
+    {
+        setPost({
+            header: "",
+            message: ""
+        })
     }
 
     return(
@@ -44,6 +57,7 @@ function PostForm(props){
                 name="header" 
                 value={post.header}
                 onChange={handleChange}
+                disabled={isLoading}
                 />
             <TextField 
                 placeholder="What's up?" 
@@ -53,8 +67,9 @@ function PostForm(props){
                 variant="outlined" 
                 value={post.message}
                 onChange={handleChange}
+                disabled={isLoading}
                 />
-            <Button type="submit" variant="outlined">Post</Button>
+            <Button disabled={isLoading} type="submit" variant="outlined">Post</Button>
         </form>
     )
 }
