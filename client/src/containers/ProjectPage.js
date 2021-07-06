@@ -40,17 +40,16 @@ function ProjectPage(props)
     {
         console.log(member);
         setProject({
-                "users": [...project["users"], member]
+                "members": [...project["members"], member]
             })
     }
 
-    function handleMemberRemove(member)
+    function handleMemberRemove(removedMember)
     {
-        let idx = project.users.indexOf(member);
-        let newList = project.users.filter( user => user != member);
+        let newList = project.members.filter( member => member.id != removedMember.id);
 
         setProject({
-            "users": newList
+            "members": newList
         })
     }
     
@@ -65,7 +64,7 @@ function ProjectPage(props)
                     project={project}
                     onMemberAdd={handleMemberAdd}
                     onMemberRemove={handleMemberRemove}
-                    members={project.users} /> 
+                    members={project.members} /> 
             }
         </div>
     )

@@ -44,9 +44,9 @@ function UserSearchForm(props) {
 
         axios.post("/members", { "member": payload }, config)
             .then(res => {
-
+                console.log(res.data)
                 if (res.status === 201) {
-                    onMemberAdd(user);
+                    onMemberAdd(res.data);
                     clearForm();
                     clearUser();
                 }

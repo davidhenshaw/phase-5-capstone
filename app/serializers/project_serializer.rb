@@ -1,9 +1,9 @@
 class ProjectSerializer < ActiveModel::Serializer
-  attributes :id, :name, :header, :description, :users, :category, :is_member
+  attributes :id, :name, :header, :description, :members, :category, :is_member
 
-  def users
-    users = self.object.users.collect do |user|
-        UserSerializer.new(user)
+  def members
+    members = self.object.members.collect do |member|
+        MemberSerializer.new(member)
     end
   end
 

@@ -19,9 +19,10 @@ function MemberList(props) {
 function MemberCard(props)
 {
     let { member, onMemberRemove } = props;
+    let { user } = member;
     return(
         <div>
-            <h2>{member.display_name}</h2>
+            <h2>{user.display_name}</h2>
             <button onClick={()=>onMemberRemove(member)}> X </button>
         </div>
     )
