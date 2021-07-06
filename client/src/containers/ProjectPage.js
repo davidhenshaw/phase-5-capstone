@@ -1,9 +1,7 @@
 import style from './../common/styles/post.module.css';
 import { 
-    Button,
     Card, 
     Container,
-    Collapse,
     Typography
 } from '@material-ui/core';
 
@@ -13,9 +11,8 @@ import axios from 'axios';
 
 function ProjectPage(props)
 {
-    let { user } = props;
+    // let { user } = props;
     const [projects, setProjects] = useState([]);
-    const [formOpen, setFormOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
       useEffect( () => {
@@ -36,17 +33,6 @@ function ProjectPage(props)
             setIsLoading(false)
         });
     }
-
-    function handleSubmitSuccess(post)
-    {
-        setProjects([...projects, post]);
-    }
-
-    function toggleFormOpen()
-    {
-        setFormOpen((prev) => !prev);
-    }
-    
 
 
     return(
