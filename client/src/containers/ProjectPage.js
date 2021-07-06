@@ -47,11 +47,10 @@ function ProjectPage(props)
     function handleMemberRemove(member)
     {
         let idx = project.users.indexOf(member);
-        let newList = project.splice(idx, 1);
+        let newList = project.users.filter( user => user != member);
 
         setProject({
-            "users": newList,
-            ...project
+            "users": newList
         })
     }
     
@@ -62,12 +61,12 @@ function ProjectPage(props)
                 isLoading ? 
                 <h2>Loading...</h2>
                 :
-                <MemberList members={project.users} /> 
+                <MemberList
+                    project={project}
+                    onMemberAdd={handleMemberAdd}
+                    onMemberRemove={handleMemberRemove}
+                    members={project.users} /> 
             }
-            <UserSearchForm 
-                onMemberAdd={handleMemberAdd}
-                onMemberRemove={handleMemberRemove}
-                project={project}/>
         </div>
     )
 }
