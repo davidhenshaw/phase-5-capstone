@@ -9,6 +9,7 @@ import {
 import SignupPage from './containers/SignupPage';
 import LoginPage from './containers/LoginPage';
 import PostFeed from './containers/PostFeed';
+import ProjectPage from './containers/ProjectPage';
 import axios from 'axios';
 
 function App() {
@@ -46,6 +47,9 @@ function App() {
             <div className="Form-page">
               <LoginPage onLogin={handleLogin} />
             </div>
+          </Route>
+          <Route path="/projects">
+              <ProjectPage user={user}/>
           </Route>
           <Route path="/">
             {
