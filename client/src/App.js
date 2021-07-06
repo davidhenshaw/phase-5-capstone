@@ -5,13 +5,14 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import axios from 'axios';
 
 import SignupPage from './containers/SignupPage';
 import LoginPage from './containers/LoginPage';
 import PostFeed from './containers/PostFeed';
+import ProjectFeed from './containers/ProjectFeed';
 import ProjectPage from './containers/ProjectPage';
 import CategoryPage from './containers/CategoryPage';
-import axios from 'axios';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -49,8 +50,11 @@ function App() {
               <LoginPage onLogin={handleLogin} />
             </div>
           </Route>
-          <Route path="/projects">
+          <Route path="/projects/:id">
             <ProjectPage user={user}/>
+          </Route>
+          <Route path="/projects">
+            <ProjectFeed user={user}/>
           </Route>
           <Route path="/categories">
             <CategoryPage user={user} />

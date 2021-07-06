@@ -1,25 +1,24 @@
-import style from './../common/styles/post.module.css';
-import { 
-    Card, 
-    Container,
-    Typography
-} from '@material-ui/core';
+import {
+    React,
+    useEffect,
+    useState
+} from "react";
 
-import React, { useEffect, useState } from "react";
+import {
+    useParams
+} from "react-router-dom";
+
 import axios from 'axios';
-
 
 function ProjectPage(props)
 {
-    // let { user } = props;
-    const [projects, setProjects] = useState([]);
+    let {id} = useParams();
+    const [project, setProject] = useState({})
     const [isLoading, setIsLoading] = useState(true);
 
-      useEffect( () => {
-            getProjects();
-      },[]);
+    useEffect( fetchProject, [] );
 
-    function getProjects()
+    function fetchProject()
     {
         let config = {
             headers:{
@@ -27,41 +26,22 @@ function ProjectPage(props)
             }
         }
         
-        axios.get("/projects", config)
+        axios.get(`/projects/${id}`, config)
         .then( (res) => {
-            setProjects(res.data)
+            console.log(res.data)
+            setProject(res.data)
             setIsLoading(false)
         });
     }
-
-
+    
     return(
-        <div className={style["post-feed"]}>
-            {
-                isLoading ?
-                <h1>Loading...</h1>
-                :
-                <div className={style["post-container"]}>
-                    {projects.map( (project, idx) => <ProjectCard key={idx} project={project}/> ).reverse()}
-                </div>
-            }
-        </div>
+        <h1>ProjectPage</h1>
     )
 }
 
-function ProjectCard(props)
+function MemberView()
 {
-    let { project } = props;
-    // let { avatar, username } = post.user;
-    return(
-        <Card raised={true} className={style["post-card"]}>
-            <Container component="div">
-                <Typography variant="h4" component="h1">{project.name}</Typography>
-                <Typography display="inline" variant="h6" component="h2">{project.category.name}</Typography>
-            </Container>
-            <p>{project.description}</p>
-        </Card>
-    )
+
 }
 
-export default ProjectPage;
+export default ProjectPage
