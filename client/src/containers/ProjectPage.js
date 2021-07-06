@@ -39,8 +39,7 @@ function ProjectPage(props)
     {
         console.log(member);
         setProject({
-                "users": [...project["users"], member],
-                ...project
+                "users": [...project["users"], member]
             })
     }
 
@@ -102,7 +101,7 @@ function UserSearchForm(props)
             }
         }
         
-        axios.get(`/user/${username}`, config)
+        axios.post(`/get_user`, {"username": username}, config)
         .then( (res) => setUser(res.data) )
     }
 

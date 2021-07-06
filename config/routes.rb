@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :categories
   resources :posts
   resources :users
-  get "/user/:username", to: "users#get"
+  post "/get_user", to: "users#get"
   post "/login", to: "auth#create"
   post "/auto_login", to: "auth#auto_login"
   get "/logged_in?", to: "application#logged_in?"
