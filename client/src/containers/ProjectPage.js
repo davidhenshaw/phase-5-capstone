@@ -41,7 +41,7 @@ function ProjectPage(props)
 
 function MemberView()
 {
-
+    
 }
 
 export default ProjectPage
