@@ -3,7 +3,7 @@ import UserSearchForm  from "../components/UserSearchForm";
 import axios from "axios";
 
 function MemberList(props) {
-    let { members , onMemberAdd, onMemberRemove, project } = props;
+    let { members , onMemberAdd, onMemberRemove, project, writePermission } = props;
 
     function handleMemberRemove(member)
     {
@@ -22,23 +22,35 @@ function MemberList(props) {
 
     return(
         <div>
-            {members.map((member, idx) => <MemberCard onMemberRemove={handleMemberRemove} member={member} key={idx}/>)}
-            <UserSearchForm 
-                onMemberAdd={onMemberAdd}
-                onMemberRemove={onMemberRemove}
-                project={project} />
+            <h2>Collaborators:</h2>
+            {}
+            {members.map((member, idx) => <MemberCard writePermission={writePermission} onMemberRemove={handleMemberRemove} member={member} key={idx}/>)}
+            {
+                writePermission ? 
+                <UserSearchForm 
+                    onMemberAdd={onMemberAdd}
+                    onMemberRemove={onMemberRemove}
+                    project={project} />
+                    :
+                    null
+            }
         </div>
     ) 
 }
 
 function MemberCard(props)
 {
-    let { member, onMemberRemove } = props;
+    let { member, onMemberRemove, writePermission } = props;
     let { user } = member;
     return(
         <div>
-            <h2>{user.display_name}</h2>
-            <button onClick={()=>onMemberRemove(member)}> X </button>
+            <h3>{user.display_name}</h3>
+            {
+                writePermission ?
+                <button onClick={()=>onMemberRemove(member)}> X </button>
+                :
+                null
+            }
         </div>
     )
 }

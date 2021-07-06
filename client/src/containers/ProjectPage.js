@@ -30,7 +30,6 @@ function ProjectPage(props)
         
         axios.get(`/projects/${id}`, config)
         .then( (res) => {
-            // console.log(res.data)
             setProject(res.data)
             setIsLoading(false)
         });
@@ -40,6 +39,7 @@ function ProjectPage(props)
     {
         console.log(member);
         setProject({
+                ...project,
                 "members": [...project["members"], member]
             })
     }
@@ -49,18 +49,21 @@ function ProjectPage(props)
         let newList = project.members.filter( member => member.id != removedMember.id);
 
         setProject({
+            ...project,
             "members": newList
         })
     }
     
     return(
         <div>
-            <h1>ProjectPage</h1>
+            <h1>{project.name}</h1>
+            <p>{project.description}</p>
             {
                 isLoading ? 
                 <h2>Loading...</h2>
                 :
                 <MemberList
+                    writePermission={project.is_member}
                     project={project}
                     onMemberAdd={handleMemberAdd}
                     onMemberRemove={handleMemberRemove}
