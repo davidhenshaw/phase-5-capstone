@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 
 import axios from 'axios';
+import MemberList from "./MemberList";
 
 function ProjectPage(props)
 {
@@ -33,6 +34,26 @@ function ProjectPage(props)
             setIsLoading(false)
         });
     }
+
+    function handleMemberAdd(member)
+    {
+        console.log(member);
+        setProject({
+                "users": [...project["users"], member],
+                ...project
+            })
+    }
+
+    function handleMemberRemove(member)
+    {
+        let idx = project.users.indexOf(member);
+        let newList = project.splice(idx, 1);
+
+        setProject({
+            "users": newList,
+            ...project
+        })
+    }
     
     return(
         <div>
@@ -43,27 +64,17 @@ function ProjectPage(props)
                 :
                 <MemberList members={project.users} /> 
             }
-            <UserSearchForm project={project}/>
+            <UserSearchForm 
+                onMemberAdd={handleMemberAdd}
+                onMemberRemove={handleMemberRemove}
+                project={project}/>
         </div>
     )
 }
 
-function MemberList(props)
-{
-    let { members } = props;
-
-    let memberCard = (data, idx) => {
-        return (
-            <h2 key={idx}>{data.display_name}</h2>
-        )
-    }
-
-    return members.map((member, idx) => memberCard(member, idx))
-}
-
 function UserSearchForm(props)
 {
-    let {project} = props;
+    let {project, onMemberAdd, onMemberRemove} = props;
     let [username, setUsername] = useState("");
     let [user, setUser] = useState();
 
@@ -109,10 +120,16 @@ function UserSearchForm(props)
         }
 
         axios.post("/members", {"member": payload}, config)
-        .catch(err => console.log(err.response.data))
+        .then( res => {
 
-        clearForm();
-        clearUser();
+            if(res.status === 201)
+            {
+                onMemberAdd(user);
+                clearForm()
+                clearUser()
+            }
+        })
+        .catch(err => console.log(err.response.data))
     }
 
     return (
