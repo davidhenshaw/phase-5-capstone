@@ -10,6 +10,7 @@ import SignupPage from './containers/SignupPage';
 import LoginPage from './containers/LoginPage';
 import PostFeed from './containers/PostFeed';
 import ProjectPage from './containers/ProjectPage';
+import CategoryPage from './containers/CategoryPage';
 import axios from 'axios';
 
 function App() {
@@ -49,7 +50,10 @@ function App() {
             </div>
           </Route>
           <Route path="/projects">
-              <ProjectPage user={user}/>
+            <ProjectPage user={user}/>
+          </Route>
+          <Route path="/categories">
+            <CategoryPage user={user} />
           </Route>
           <Route path="/">
             {
