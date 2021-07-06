@@ -109,7 +109,7 @@ function UserSearchForm(props)
         }
 
         axios.post("/members", {"member": payload}, config)
-        .then( console.log )
+        .catch(err => console.log(err.response.data))
 
         clearForm();
         clearUser();
