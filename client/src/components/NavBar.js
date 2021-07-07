@@ -12,15 +12,24 @@ import {
     Typography
 } from "@material-ui/core";
 
+import { ThemeProvider } from '@material-ui/styles';
+
+
 const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1
         },
+        text: {
+            color: theme.palette.text.primary,
+        },
         menuButton: {
-            marginRight: theme.spacing(2)
+            color: theme.palette.text.light,
+            maxHeight: "100%",
+            minHeight: "100%",
+            // marginRight: theme.spacing(2)
         },
         container: {
-            color: theme.palette.primary,
+            color: theme.palette.secondary.light,
             display: "flex",
             justifyContent: "space-around",
             padding: theme.spacing(1),
@@ -38,7 +47,7 @@ function NavBar(props)
         return(
                 user ? 
                 <div>
-                    <Typography> Welcome back, {user.display_name}! </Typography>
+                    <Typography className={classes.text}> Welcome back, {user.display_name}! </Typography>
                     <Button className={classes.menuButton} onClick={onLogout}>Log out</Button>
                 </div>
                 :
@@ -54,15 +63,15 @@ function NavBar(props)
         <div className={classes.root}>
             <AppBar position="relative">
                 <Toolbar className={classes.container}>
-                    <Typography>
-                        <Link to="/">Home</Link>
-                    </Typography>
-                    <Typography>
-                        <Link to="/categories">Browse Categories</Link>
-                    </Typography>
-                    <Typography>
-                        <Link to="/projects">Browse Projects</Link>
-                    </Typography>
+                    <Button className={classes.menuButton}>
+                        Home
+                    </Button>
+                    <Button className={classes.menuButton}>
+                        Browse Categories
+                    </Button>
+                    <Button className={classes.menuButton}>
+                        Browse Projects
+                    </Button>
                 {loginSection()}
                 </Toolbar>
             </AppBar>
