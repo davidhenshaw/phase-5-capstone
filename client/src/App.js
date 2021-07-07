@@ -13,6 +13,7 @@ import PostFeed from './containers/PostFeed';
 import ProjectFeed from './containers/ProjectFeed';
 import ProjectPage from './containers/ProjectPage';
 import CategoryPage from './containers/CategoryPage';
+import NavBar from './components/NavBar';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -40,7 +41,9 @@ function App() {
   return (
     <div className="App">
       <Router>
-  
+
+        <NavBar />
+
         <Switch>
           <Route path="/signup">
             <SignupPage />
