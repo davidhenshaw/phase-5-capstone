@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   
   resources :members
   resources :projects
-  resources :categories
+  resources :categories do 
+    resources :projects, only: [:index, :show]
+  end
   resources :posts
   resources :users
   post "/get_user", to: "users#get"

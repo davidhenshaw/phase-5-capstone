@@ -56,6 +56,9 @@ function App() {
           <Route path="/projects">
             <ProjectFeed user={user}/>
           </Route>
+          <Route path="/categories/:id">
+            <ProjectFeed user={user}/>
+          </Route>
           <Route path="/categories">
             <CategoryPage user={user} />
           </Route>

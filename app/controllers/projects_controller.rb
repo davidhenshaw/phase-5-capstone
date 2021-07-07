@@ -3,7 +3,11 @@ class ProjectsController < ApplicationController
 
   # GET /projects
   def index
-    @projects = Project.all
+    if params[:category_id]
+      @projects = Project.where(category_id: params[:category_id])
+    else
+      @projects = Project.all
+    end
 
     render json: @projects
   end

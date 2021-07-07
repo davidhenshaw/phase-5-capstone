@@ -56,7 +56,9 @@ function CategoryCard(props)
     return(
         <Card raised={true} className={style["post-card"]}>
             <Container component="div">
-                <Typography variant="h4" component="h1">{category.name}</Typography>
+                <a href={`/categories/${category.id}`}>
+                    <Typography variant="h4" component="h1">{category.name}</Typography>
+                </a>
                 {/* <Typography display="inline" variant="h6" component="h2">{category.name}</Typography> */}
             </Container>
         </Card>

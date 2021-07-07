@@ -7,11 +7,12 @@ import {
 
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 
 function ProjectFeed(props)
 {
-    // let { user } = props;
+    let { id } = useParams();
     const [projects, setProjects] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -26,8 +27,10 @@ function ProjectFeed(props)
                 Authorization: `Bearer ${localStorage.token}`
             }
         }
+
+        let path = id ? `/categories/${id}/projects` : "/projects"
         
-        axios.get("/projects", config)
+        axios.get(path, config)
         .then( (res) => {
             setProjects(res.data)
             setIsLoading(false)
@@ -44,6 +47,12 @@ function ProjectFeed(props)
                 <div className={style["post-container"]}>
                     {projects.map( (project, idx) => <ProjectCard key={idx} project={project}/> ).reverse()}
                 </div>
+            }
+            {
+                (!isLoading && projects.length <= 0) ?
+                <h2>No projects in this category!</h2>
+                :
+                null
             }
         </div>
     )
