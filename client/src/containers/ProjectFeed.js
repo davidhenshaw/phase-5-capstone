@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 
 function ProjectFeed(props)
 {
-    let { id } = useParams();
+    let { id: category_id } = useParams();
     const [projects, setProjects] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -28,7 +28,7 @@ function ProjectFeed(props)
             }
         }
 
-        let path = id ? `/categories/${id}/projects` : "/projects"
+        let path = category_id ? `/categories/${category_id}/projects` : "/projects"
         
         axios.get(path, config)
         .then( (res) => {
