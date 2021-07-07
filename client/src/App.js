@@ -42,7 +42,7 @@ function App() {
     <div className="App">
       <Router>
 
-        <NavBar />
+        <NavBar onLogout={handleLogout} user={user}/>
 
         <Switch>
           <Route path="/signup">
@@ -66,16 +66,14 @@ function App() {
             <CategoryPage user={user} />
           </Route>
           <Route path="/">
-            {
+            {/* {
               user ? 
               <div>
                 <h1>Welcome back, {user.display_name}!</h1>
-                <button onClick={handleLogout}>Log out</button>
               </div>
               :
               <h1>Welcome! Please <a href="/login">log in.</a></h1>
-            }
-            {/* <PostFormContainer /> */}
+            } */}
             <PostFeed user={user}/>
           </Route>
         </Switch>
