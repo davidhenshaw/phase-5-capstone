@@ -23,13 +23,13 @@ const useStyles = makeStyles((theme) => ({
             color: theme.palette.text.primary,
         },
         menuButton: {
-            color: theme.palette.text.light,
+            color: theme.palette.text.dark,
             maxHeight: "100%",
             minHeight: "100%",
             // marginRight: theme.spacing(2)
         },
         container: {
-            color: theme.palette.secondary.light,
+            // color: theme.palette.secondary.light,
             display: "flex",
             justifyContent: "space-around",
             padding: theme.spacing(1),
@@ -63,15 +63,21 @@ function NavBar(props)
         <div className={classes.root}>
             <AppBar position="relative">
                 <Toolbar className={classes.container}>
-                    <Button className={classes.menuButton}>
-                        Home
-                    </Button>
-                    <Button className={classes.menuButton}>
-                        Browse Categories
-                    </Button>
-                    <Button className={classes.menuButton}>
-                        Browse Projects
-                    </Button>
+                    <Link to="/" className={classes.menuButton}>
+                        <Typography >
+                            Home
+                        </Typography>
+                    </Link>
+                    <Link to="/categories" className={classes.menuButton}>
+                        <Typography>
+                            Browse Categories
+                        </Typography>
+                    </Link>
+                    <Link to="/projects" className={classes.menuButton}>
+                        <Typography>
+                            Browse Projects
+                        </Typography>
+                    </Link>
                 {loginSection()}
                 </Toolbar>
             </AppBar>
