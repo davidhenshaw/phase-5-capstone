@@ -1,0 +1,9 @@
+.profile-page{
+    width: 100vw;
+    height: 100vh;
+}
+
+table, td {
+    border: 1px solid;
+    margin: 0 auto;
+}

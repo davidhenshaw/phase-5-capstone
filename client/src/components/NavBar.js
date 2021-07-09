@@ -1,7 +1,8 @@
 import {React} from 'react';
 import {
     BrowserRouter as Router,
-    Link
+    Link,
+    useHistory
 } from "react-router-dom";
 
 import { 
@@ -42,6 +43,7 @@ function NavBar(props)
     let { user , onLogout } = props;
 
     const classes = useStyles();
+    const history = useHistory();
 
     const loginSection = () => {
         return(
@@ -49,6 +51,11 @@ function NavBar(props)
                 <div>
                     <Typography className={classes.text}> Welcome back, {user.display_name}! </Typography>
                     <Button className={classes.menuButton} onClick={onLogout}>Log out</Button>
+                    <Button 
+                        className={classes.menuButton} 
+                        onClick={() => history.push("/profile")}>
+                            Profile
+                    </Button>
                 </div>
                 :
                 <div>

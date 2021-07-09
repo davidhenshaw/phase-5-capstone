@@ -90,7 +90,7 @@ function App() {
               <ProjectForm user={user}/>
             </Route>
             <Route path="/profile">
-              <UserProfilePage />
+              <UserProfilePage user={user}/>
             </Route>
             <Route path="/">
               {/* {
