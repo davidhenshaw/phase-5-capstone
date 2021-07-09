@@ -33,8 +33,10 @@ const theme = createMuiTheme({
 
 function App() {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect( () => {
+    setIsLoading(true)
     autoLogin();
   },[]);
 
@@ -44,7 +46,14 @@ function App() {
     if(!token) { return undefined }
 
     axios.post("/auto_login", {"token": token})
-    .then(res => setUser(res.data))
+    .then(res => {
+      setUser(res.data)
+      setIsLoading(false);
+    })
+    .catch(err => {
+      console.log(err)
+      setIsLoading(false);
+    })
   }
 
   const handleLogin = (user) => 
@@ -56,6 +65,12 @@ function App() {
   {
     setUser(null);
     localStorage.token = "";
+  }
+
+  if( isLoading )
+  {
+    // console.log(user);
+    return null
   }
 
   return (

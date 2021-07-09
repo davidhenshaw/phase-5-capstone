@@ -18,7 +18,7 @@ import { ThemeProvider } from '@material-ui/styles';
 
 const useStyles = makeStyles((theme) => ({
         root: {
-            flexGrow: 1
+            flexGrow: 1,
         },
         text: {
             color: theme.palette.text.primary,
