@@ -98,7 +98,7 @@ function ProjectPage(props)
             {
                 isEditMode ? 
                 <div>
-                    <ProjectEdit onSave={handleSave} project={project} />
+                    <ProjectForm onEdit={handleSave} projectEdit={project}/>
                     <Button onClick={handleCancelEdit}>Cancel</Button>
                 </div>
                 :
@@ -135,16 +135,6 @@ function ProjectInfo( {project, onEdit} )
             <h1>{project.name}</h1>
             <p>{project.description}</p>
             <Button variant="outlined" onClick={onEdit}>Edit</Button>
-        </div>
-    )
-}
-
-function ProjectEdit( {project, onSave} )
-{
-    return(
-        <div>
-            <ProjectForm onEdit={onSave} projectEdit={project}/>
-            {/* <Button variant="outlined" onClick={onSave}>Save</Button> */}
         </div>
     )
 }
