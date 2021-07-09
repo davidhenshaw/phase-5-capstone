@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios'
 import { Button, TextField } from "@material-ui/core";
 import style from './../common/styles/form.module.css';
+import { useHistory } from "react-router";
 
 function ProjectForm(props){
-    let { onSubmitSuccess } = props;
     const [project, setProject] = useState({
         name: "",
         category_id: 0,
@@ -15,6 +15,8 @@ function ProjectForm(props){
 
     const [isLoading, setIsLoading] = useState(false);
     const [categories, setCategories] = useState([]);
+
+    const history = useHistory();
 
 
     useEffect( () => {
@@ -61,11 +63,19 @@ function ProjectForm(props){
 
         axios.post("/projects", payload, config)
         .then( (res) => {
-            // onSubmitSuccess(res.data);
+            onSubmitSuccess(res.data);
             console.log(res);
             setIsLoading(false);
             clearForm();
-        } )
+        } ).catch( err => {
+            setIsLoading(false);
+            clearForm();
+        })
+    }
+
+    function onSubmitSuccess(project)
+    {
+        history.push(`/projects/${project.id}`);
     }
 
     function clearForm()
