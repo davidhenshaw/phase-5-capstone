@@ -17,6 +17,7 @@ import NavBar from './components/NavBar';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors';
+import ProjectForm from './components/ProjectForm';
 
 const theme = createMuiTheme({
     palette: {
@@ -33,13 +34,18 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect( () => {
+    autoLogin();
+  },[]);
+
+  function autoLogin()
+  {
     let token = localStorage.token;
     if(!token) { return undefined }
 
     axios.post("/auto_login", {"token": token})
     .then(res => setUser(res.data))
 
-  },[]);
+  }
 
   const handleLogin = (user) => 
   {
@@ -79,6 +85,9 @@ function App() {
             </Route>
             <Route path="/categories">
               <CategoryPage user={user} />
+            </Route>
+            <Route path="/new-project">
+              <ProjectForm user={user}/>
             </Route>
             <Route path="/">
               {/* {
