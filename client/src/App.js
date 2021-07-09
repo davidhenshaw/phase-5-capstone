@@ -44,7 +44,6 @@ function App() {
 
     axios.post("/auto_login", {"token": token})
     .then(res => setUser(res.data))
-
   }
 
   const handleLogin = (user) => 

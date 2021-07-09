@@ -12,6 +12,7 @@ import {
 import axios from 'axios';
 import MemberList from "./MemberList";
 import { Button } from "@material-ui/core";
+import ProjectForm from "../components/ProjectForm";
 
 function ProjectPage(props)
 {
@@ -19,6 +20,7 @@ function ProjectPage(props)
     const history = useHistory();
     const [project, setProject] = useState({})
     const [isLoading, setIsLoading] = useState(true);
+    const [isEditMode, setIsEditMode] = useState(false);
 
     useEffect( fetchProject, [] );
 
@@ -75,11 +77,33 @@ function ProjectPage(props)
             console.log(err);
         })
     }
+
+    function handleSave(newProject){
+        setProject(newProject);
+        setIsEditMode(false);
+    }
+    
+    function handleCancelEdit()
+    {
+        setIsEditMode(false);
+    }
+
+    function handleEdit()
+    {
+        setIsEditMode(true);
+    }
     
     return(
         <div>
-            <h1>{project.name}</h1>
-            <p>{project.description}</p>
+            {
+                isEditMode ? 
+                <div>
+                    <ProjectEdit onSave={handleSave} project={project} />
+                    <Button onClick={handleCancelEdit}>Cancel</Button>
+                </div>
+                :
+                <ProjectInfo onEdit={handleEdit} project={project} />
+            }
             {
                 isLoading ? 
                 <h2>Loading...</h2>
@@ -100,6 +124,27 @@ function ProjectPage(props)
                 :
                 null
             }
+        </div>
+    )
+}
+
+function ProjectInfo( {project, onEdit} )
+{
+    return(
+        <div>
+            <h1>{project.name}</h1>
+            <p>{project.description}</p>
+            <Button variant="outlined" onClick={onEdit}>Edit</Button>
+        </div>
+    )
+}
+
+function ProjectEdit( {project, onSave} )
+{
+    return(
+        <div>
+            <ProjectForm onEdit={onSave} projectEdit={project}/>
+            {/* <Button variant="outlined" onClick={onSave}>Save</Button> */}
         </div>
     )
 }

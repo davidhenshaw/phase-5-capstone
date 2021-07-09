@@ -5,7 +5,11 @@ import { Button, TextField } from "@material-ui/core";
 import style from './../common/styles/form.module.css';
 import { useHistory } from "react-router";
 
-function ProjectForm(props){
+function ProjectForm(props)
+{
+    //This is an existing project that is being edited
+    let { projectEdit, onEdit } = props;
+
     const [project, setProject] = useState({
         name: "",
         category_id: 0,
@@ -22,6 +26,12 @@ function ProjectForm(props){
     useEffect( () => {
 
         fetchCategories();
+
+        if( projectEdit )
+        {
+            //Prefill the form with the existing project info if it has one
+            setProject( projectEdit );
+        }
 
     } ,[])
 
@@ -61,16 +71,33 @@ function ProjectForm(props){
 
         let payload = {"project": project}
 
-        axios.post("/projects", payload, config)
-        .then( (res) => {
-            onSubmitSuccess(res.data);
-            console.log(res);
-            setIsLoading(false);
-            clearForm();
-        } ).catch( err => {
-            setIsLoading(false);
-            clearForm();
-        })
+        if (projectEdit)
+        {   //If you're using this component as a patch
+            axios.patch(`/projects/${projectEdit.id}`, payload, config)
+            .then( (res) => {
+                onEdit(res.data);
+                console.log(res);
+                setIsLoading(false);
+                clearForm();
+            } ).catch( err => {
+                setIsLoading(false);
+                clearForm();
+            })
+        }
+        else
+        {   //If you're using this component as a post
+            axios.post("/projects", payload, config)
+            .then( (res) => {
+                onSubmitSuccess(res.data);
+                console.log(res);
+                setIsLoading(false);
+                clearForm();
+            } ).catch( err => {
+                setIsLoading(false);
+                clearForm();
+            })
+        }
+
     }
 
     function onSubmitSuccess(project)
@@ -90,7 +117,14 @@ function ProjectForm(props){
 
     function generateCategoryOptions()
     {
-        return categories.map( (category) => <option value={category.id}>{category.name}</option>)
+        return categories.map( (category) => {
+            if( projectEdit && category.id == projectEdit.category.id ){
+                return <option selected={true} value={category.id}>{category.name}</option>
+            }
+            else{
+                return <option value={category.id}>{category.name}</option>
+            }
+        })
     }
 
     function handleCategorySelect(evt)
@@ -131,7 +165,12 @@ function ProjectForm(props){
                 onChange={handleChange}
                 disabled={isLoading}
                 />
-            <Button disabled={isLoading} type="submit" variant="contained">Create Project!</Button>
+                {
+                    projectEdit ?
+                    <Button disabled={isLoading} type="submit" variant="contained">Save</Button>
+                    :
+                    <Button disabled={isLoading} type="submit" variant="contained">Create Project!</Button>
+                }
         </form>
     )
 }
