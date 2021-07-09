@@ -13,6 +13,7 @@ import PostFeed from './containers/PostFeed';
 import ProjectFeed from './containers/ProjectFeed';
 import ProjectPage from './containers/ProjectPage';
 import CategoryPage from './containers/CategoryPage';
+import UserProfilePage from './containers/UserProfilePage';
 import NavBar from './components/NavBar';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core'
@@ -87,6 +88,9 @@ function App() {
             </Route>
             <Route path="/new-project">
               <ProjectForm user={user}/>
+            </Route>
+            <Route path="/profile">
+              <UserProfilePage />
             </Route>
             <Route path="/">
               {/* {
