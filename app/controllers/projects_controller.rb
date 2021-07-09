@@ -20,8 +20,9 @@ class ProjectsController < ApplicationController
   # POST /projects
   def create
     @project = Project.new(project_params)
-
+    
     if @project.save
+      @project.addMember(current_user.id)
       render json: @project, status: :created, location: @project
     else
       render json: @project.errors, status: :unprocessable_entity
@@ -50,6 +51,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.fetch(:project, {})
+      params.require(:project).permit(:category_id, :name, :header, :description)
     end
 end
