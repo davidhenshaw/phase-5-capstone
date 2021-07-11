@@ -36,9 +36,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect( () => {
-    setIsLoading(true)
+    //setIsLoading(true)
     autoLogin();
-  },[]);
+  }, []);
 
   function autoLogin()
   {
@@ -47,12 +47,13 @@ function App() {
 
     axios.post("/auto_login", {"token": token})
     .then(res => {
-      setUser(res.data)
+      setUser(res.data);
+      console.log(res)
       setIsLoading(false);
     })
     .catch(err => {
-      console.log(err)
       setIsLoading(false);
+      console.log(err)
     })
   }
 
