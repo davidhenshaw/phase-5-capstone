@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios'
 import { Box, TextField, Button } from "@material-ui/core";
 
@@ -15,6 +16,8 @@ function SignupForm() {
     })
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setError] = useState({});
+
+    const history = useHistory();
 
 
     function handleChange(evt)
@@ -66,6 +69,7 @@ function SignupForm() {
         .then( res => { 
             setIsLoading(false);
             clearForm();
+            history.push("/login")
         })
         .catch( err => {
             setIsLoading(false);
