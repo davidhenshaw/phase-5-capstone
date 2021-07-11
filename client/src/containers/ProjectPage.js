@@ -92,17 +92,27 @@ function ProjectPage(props)
     {
         setIsEditMode(true);
     }
+
+    const editorView = () => {
+        return(
+            isEditMode ? 
+            <div>
+                <ProjectForm onEdit={handleSave} projectEdit={project}/>
+                <Button onClick={handleCancelEdit}>Cancel</Button>
+            </div>
+            :
+            <Button variant="outlined" onClick={handleEdit}>Edit</Button>
+        )
+    }
     
     return(
         <div>
+            <ProjectInfo project={project} />
             {
-                isEditMode ? 
-                <div>
-                    <ProjectForm onEdit={handleSave} projectEdit={project}/>
-                    <Button onClick={handleCancelEdit}>Cancel</Button>
-                </div>
+                project.is_member ? 
+                editorView()
                 :
-                <ProjectInfo onEdit={handleEdit} project={project} />
+                null
             }
             {
                 isLoading ? 
@@ -128,13 +138,12 @@ function ProjectPage(props)
     )
 }
 
-function ProjectInfo( {project, onEdit} )
+function ProjectInfo( {project} )
 {
     return(
         <div>
             <h1>{project.name}</h1>
             <p>{project.description}</p>
-            <Button variant="outlined" onClick={onEdit}>Edit</Button>
         </div>
     )
 }
