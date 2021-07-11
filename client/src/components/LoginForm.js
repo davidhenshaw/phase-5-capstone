@@ -2,9 +2,7 @@ import React from "react";
 import { useState } from 'react';
 import axios from 'axios'
 import { useHistory } from "react-router";
-// import TextField from '@material-ui/core/TextField';
-// import Button from '@material-ui/core/Button';
-import { Box, TextField, Button } from "@material-ui/core";
+import { Box, TextField, Button, Typography } from "@material-ui/core";
 
 import style from "../common/styles/form.module.css";
 
@@ -16,6 +14,7 @@ function LoginForm(props) {
         password: "",
     })
     const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("")
 
 
     function handleChange(evt)
@@ -46,6 +45,8 @@ function LoginForm(props) {
     {
         evt.preventDefault();
         setIsLoading(true);
+        setErrorMessage("");
+        
         let payload = {user: userLogin}
 
         axios.post("/login", payload)
@@ -54,7 +55,10 @@ function LoginForm(props) {
             onLogin( res.data.user )
             setIsLoading( false );
             history.push("/")
-        } )
+        } ).catch( err => {
+            setIsLoading(false);
+            setErrorMessage(err.response.data.message)
+        })
     }
 
     return(
@@ -69,6 +73,12 @@ function LoginForm(props) {
                 Log In!
             </Button>
           </form>
+          {
+              errorMessage ? 
+              <Typography>{errorMessage}</Typography>
+              :
+              null
+          }
               <p>Don't have an account? <a href={"/signup"}>Sign Up!</a> </p>
         </Box>
     )

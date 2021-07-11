@@ -85,6 +85,12 @@ function NavBar(props)
                             Browse Projects
                         </Typography>
                     </Link>
+                    {
+                        user ? 
+                        <Link to="/new-project" className={classes.menuButton}>Start Project!</Link>
+                        :
+                        null
+                    }
                 {loginSection()}
                 </Toolbar>
             </AppBar>
