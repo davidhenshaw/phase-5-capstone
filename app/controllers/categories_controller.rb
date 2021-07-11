@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :update, :destroy]
+  skip_before_action :authorized, only: [:index, :show]
 
   # GET /categories
   def index
