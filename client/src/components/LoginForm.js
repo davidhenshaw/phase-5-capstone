@@ -73,12 +73,14 @@ function LoginForm(props) {
                 Log In!
             </Button>
           </form>
+          <Box color="error.main">
           {
               errorMessage ? 
               <Typography>{errorMessage}</Typography>
               :
               null
           }
+          </Box>
               <p>Don't have an account? <a href={"/signup"}>Sign Up!</a> </p>
         </Box>
     )

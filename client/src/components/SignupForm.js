@@ -101,8 +101,10 @@ function SignupForm() {
           <form onSubmit={handleSubmit} className={style["form-column"]}>
               {generateFields(["text", "password", "password", "text", "text"])}
               {
-                  errors ? 
-                  displayErrors("username")
+                  errors ?
+                  <Box color="error.main"> 
+                  {displayErrors("username")}
+                  </Box>
                   :
                   null
               }
