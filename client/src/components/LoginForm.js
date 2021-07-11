@@ -16,6 +16,7 @@ function LoginForm(props) {
         password: "",
     })
     const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("")
 
 
     function handleChange(evt)
@@ -46,6 +47,8 @@ function LoginForm(props) {
     {
         evt.preventDefault();
         setIsLoading(true);
+        setErrorMessage("");
+        
         let payload = {user: userLogin}
 
         axios.post("/login", payload)
@@ -54,7 +57,10 @@ function LoginForm(props) {
             onLogin( res.data.user )
             setIsLoading( false );
             history.push("/")
-        } )
+        } ).catch( err => {
+            setIsLoading(false);
+            setErrorMessage(err.response.data.message)
+        })
     }
 
     return(
@@ -69,6 +75,12 @@ function LoginForm(props) {
                 Log In!
             </Button>
           </form>
+          {
+              errorMessage ? 
+              <p>{errorMessage}</p>
+              :
+              null
+          }
               <p>Don't have an account? <a href={"/signup"}>Sign Up!</a> </p>
         </Box>
     )
