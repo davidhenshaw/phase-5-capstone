@@ -14,6 +14,7 @@ function SignupForm() {
         display_name: ""
     })
     const [isLoading, setIsLoading] = useState(false);
+    const [errors, setError] = useState({});
 
 
     function handleChange(evt)
@@ -53,6 +54,7 @@ function SignupForm() {
     {
         evt.preventDefault();
         setIsLoading(true);
+        setError({});
 
         if( !passwordMatch() )
         {
@@ -64,6 +66,11 @@ function SignupForm() {
         .then( res => { 
             setIsLoading(false);
             clearForm();
+        })
+        .catch( err => {
+            setIsLoading(false);
+            console.log(err.response);
+            setError(err.response.data);
         })
     }
 
@@ -78,15 +85,23 @@ function SignupForm() {
         })
     }
 
+    function displayErrors( key )
+    {
+        if( errors[key] ){
+            return errors[key].map( msg => <p>{key}: {msg}</p>)
+        }
+    }
+
     return(
         <Box variant="color">
           <form onSubmit={handleSubmit} className={style["form-column"]}>
-              {/* <input placeholder="Username" name="username" value={user.username} onChange={handleChange} /> 
-              <input type="password" placeholder="Password" name="password" value={user.password} onChange={handleChange} /> 
-              <input type="password" placeholder="Re-type password" name="password" value={retypePasswd} onChange={handlePasswordChange} /> 
-              <input placeholder="Email" name="email" value={user.email} onChange={handleChange} /> 
-              <input placeholder="Display Name" name="display_name" value={user.display_name} onChange={handleChange} />  */}
               {generateFields(["text", "password", "password", "text", "text"])}
+              {
+                  errors ? 
+                  displayErrors("username")
+                  :
+                  null
+              }
               <Button
                 disabled={isLoading} 
                 type='submit' 
