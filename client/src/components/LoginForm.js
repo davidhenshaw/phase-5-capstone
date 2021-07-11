@@ -2,9 +2,7 @@ import React from "react";
 import { useState } from 'react';
 import axios from 'axios'
 import { useHistory } from "react-router";
-// import TextField from '@material-ui/core/TextField';
-// import Button from '@material-ui/core/Button';
-import { Box, TextField, Button } from "@material-ui/core";
+import { Box, TextField, Button, Typography } from "@material-ui/core";
 
 import style from "../common/styles/form.module.css";
 
@@ -77,7 +75,7 @@ function LoginForm(props) {
           </form>
           {
               errorMessage ? 
-              <p>{errorMessage}</p>
+              <Typography>{errorMessage}</Typography>
               :
               null
           }
