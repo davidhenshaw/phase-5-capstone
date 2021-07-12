@@ -44,7 +44,7 @@ function ProjectFeed(props)
                 isLoading ?
                 <h1>Loading...</h1>
                 :
-                <div className={style["post-container"]}>
+                <div className={style["project-container"]}>
                     {projects.map( (project, idx) => <ProjectCard key={idx} project={project}/> ).reverse()}
                 </div>
             }
@@ -63,14 +63,16 @@ function ProjectCard(props)
     let { project } = props;
     // let { avatar, username } = post.user;
     return(
-        <Card raised={true} className={style["post-card"]}>
-                <Container component="div"> 
+        <Card raised={true} className={style["project-card"]}>
+                <Container component="div" className="project-card-header"> 
                     <a href={`/projects/${project.id}`}>
                         <Typography variant="h4" component="h1">{project.name}</Typography>
                     </a>
-                    <Typography display="inline" variant="h6" component="h2">{project.category.name}</Typography>
+                    <a href={`/categories/${project.category.id}`}>
+                        <Typography display="inline" variant="h6" component="h2">{project.category.name}</Typography>
+                    </a>
                 </Container>
-            <p>{project.description}</p>
+            <p>{project.header}</p>
         </Card>
     )
 }
