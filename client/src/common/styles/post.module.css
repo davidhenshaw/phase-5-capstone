@@ -5,12 +5,13 @@
 
 .post-card {
     text-align: left;
-    width: 75%;
-    margin: 50px;
+    width: 625px;
+    margin: 15px;
 }
 
 .post-card p {
     white-space: pre-wrap;
+    padding: 0px 15px;
 }
 
 .post-container {
@@ -19,5 +20,30 @@
     display:flex;
     flex-direction: column;
     align-items: center;
-    /* border: 2px solid; */
+    border: 2px solid;
+}
+
+.thumbnail-container{
+    margin: 50px auto;
+    border: 1px solid;
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+}
+
+.thumbnail {
+    width: 400px;
+    height:150px;
+    display: flex;
+    align-items: center;
+}
+
+.thumbnail h1 {
+    text-decoration: none;
+}
+
+.no-style-link {
+    text-decoration: inherit;
 }

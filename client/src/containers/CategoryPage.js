@@ -1,13 +1,23 @@
 import style from './../common/styles/post.module.css';
 import { 
+    Box,
     Card, 
     Container,
+    makeStyles,
     Typography
 } from '@material-ui/core';
 
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
+const useStyles = makeStyles((theme) => ({
+    thumbnail: {
+        flexGrow: 1,
+        textDecoration: "inherit"
+    },
+  })
+);
+  
 
 function CategoryPage(props)
 {
@@ -36,32 +46,28 @@ function CategoryPage(props)
 
 
     return(
-        <div className={style["post-feed"]}>
-            {
                 isLoading ?
                 <h1>Loading...</h1>
                 :
-                <div className={style["post-container"]}>
+                <div className={style["thumbnail-container"]}>
                     {categories.map( (category, idx) => <CategoryCard key={idx} category={category}/> ).reverse()}
                 </div>
-            }
-        </div>
     )
 }
 
 function CategoryCard(props)
 {
     let { category } = props;
-    // let { avatar, username } = post.user;
+    let classes = useStyles();
+
     return(
-        <Card raised={true} className={style["post-card"]}>
-            <Container component="div">
-                <a href={`/categories/${category.id}`}>
-                    <Typography variant="h4" component="h1">{category.name}</Typography>
-                </a>
-                {/* <Typography display="inline" variant="h6" component="h2">{category.name}</Typography> */}
-            </Container>
-        </Card>
+        <a className="no-style-link" href={`/categories/${category.id}`}>
+            <Card raised={true} className={style["thumbnail"]}>
+                <Container component="div" className={classes.thumbnail}>
+                    <h1 variant="h4" component="h1">{category.name}</h1>
+                </Container>
+            </Card>
+        </a>
     )
 }
 
