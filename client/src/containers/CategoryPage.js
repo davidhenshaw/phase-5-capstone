@@ -1,4 +1,4 @@
-import style from './../common/styles/post.module.css';
+import style from './../common/styles/project.module.css';
 import { 
     Box,
     Card, 

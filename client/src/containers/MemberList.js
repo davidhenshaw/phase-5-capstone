@@ -2,6 +2,8 @@ import { React } from "react";
 import UserSearchForm  from "../components/UserSearchForm";
 import axios from "axios";
 
+import style from '../common/styles/project.module.css'
+
 function MemberList(props) {
     let { members , onMemberAdd, onMemberRemove, project, writePermission } = props;
 
@@ -21,7 +23,7 @@ function MemberList(props) {
     }
 
     return(
-        <div>
+        <div className={style["member-list"]}>
             <h2>Collaborators:</h2>
             {}
             {members.map((member, idx) => <MemberCard writePermission={writePermission} onMemberRemove={handleMemberRemove} member={member} key={idx}/>)}
@@ -43,7 +45,7 @@ function MemberCard(props)
     let { member, onMemberRemove, writePermission } = props;
     let { user } = member;
     return(
-        <div>
+        <div className={style["member-card"]}>
             <h3>{user.display_name}</h3>
             {
                 writePermission ?
