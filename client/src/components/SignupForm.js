@@ -34,7 +34,7 @@ function SignupForm() {
         {
             return Object.keys(user).map( (key, idx) => 
                 <div className={style['form-column-input']}> 
-                    <TextField className={style['form-column-input']} type={types[idx]} placeholder={key.split("_").join(" ")} name={key} value={user[key]} onChange={handleChange} key={idx} /> 
+                    <TextField required className={style['form-column-input']} type={types[idx]} placeholder={key.split("_").join(" ")} name={key} value={user[key]} onChange={handleChange} key={idx} /> 
                 </div>
             )
         }
@@ -42,7 +42,7 @@ function SignupForm() {
         {
             return Object.keys(user).map( (key, idx) =>
                 <div className={style['form-column-input']}> 
-                    <TextField className={style['form-column-input']} placeholder={key.toUpperCase()} name={key} value={user[key]} onChange={handleChange} key={idx} /> 
+                    <TextField required className={style['form-column-input']} placeholder={key.toUpperCase()} name={key} value={user[key]} onChange={handleChange} key={idx} /> 
                 </div>
             )
         }
@@ -97,7 +97,6 @@ function SignupForm() {
     }
 
     return(
-        <Box variant="color">
           <form onSubmit={handleSubmit} className={style["form-column"]}>
               {generateFields(["text", "password", "password", "text", "text"])}
               {
@@ -116,7 +115,6 @@ function SignupForm() {
                 </Button>
               <p>Already have an account? <a href={"/login"}>Log In!</a> </p>
           </form>
-        </Box>
     )
 }
 
