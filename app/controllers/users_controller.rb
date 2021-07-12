@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
+  before_action :find_user, only: [:get]
   skip_before_action :authorized, only: [:create]
 
   # GET /users
@@ -17,8 +18,11 @@ class UsersController < ApplicationController
   # GET /user/username
   def get
     #byebug
-    user = User.find_by(username: params[:username])
-    render json: user
+    if @user
+      render json: @user
+    else
+      render json: {message: "Could not find user with username '#{params[:username]}'"}, status: :not_found
+    end
   end
 
   # POST /users
@@ -50,6 +54,11 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+    end
+
+    # Finds a user based on username
+    def find_user
+      @user = User.find_by(username: params[:username])
     end
 
     # Only allow a list of trusted parameters through.

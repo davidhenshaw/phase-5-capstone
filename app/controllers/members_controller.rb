@@ -20,7 +20,7 @@ class MembersController < ApplicationController
     if @member.save
       render json: @member, status: :created, location: @member
     else
-      render json: @member.errors, status: :unprocessable_entity
+      render json: @member.errors.full_messages, status: :unprocessable_entity
     end
   end
 
