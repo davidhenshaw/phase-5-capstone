@@ -17,6 +17,13 @@ function ProjectForm(props)
         description: ""
     })
 
+    const [formErrors, setFormErrors] = useState({
+        name: "",
+        category_id: "",
+        header: "",
+        description: ""
+    })
+
     const [isLoading, setIsLoading] = useState(false);
     const [categories, setCategories] = useState([]);
 
@@ -34,7 +41,6 @@ function ProjectForm(props)
         }
 
     } ,[])
-
 
     function fetchCategories(){
         let config = {
@@ -117,12 +123,12 @@ function ProjectForm(props)
 
     function generateCategoryOptions()
     {
-        return categories.map( (category) => {
+        return categories.map( (category, idx) => {
             if( projectEdit && category.id == projectEdit.category.id ){
-                return <option selected={true} value={category.id}>{category.name}</option>
+                return <option selected={true} value={category.id} key={idx}>{category.name}</option>
             }
             else{
-                return <option value={category.id}>{category.name}</option>
+                return <option value={category.id} key={idx}>{category.name}</option>
             }
         })
     }
@@ -143,6 +149,9 @@ function ProjectForm(props)
                 value={project.name}
                 onChange={handleChange}
                 disabled={isLoading}
+                error={!!formErrors.name}
+                helperText={formErrors.name}
+                required
                 />
             <TextField 
                 placeholder="Project Header" 
@@ -150,6 +159,9 @@ function ProjectForm(props)
                 value={project.header}
                 onChange={handleChange}
                 disabled={isLoading}
+                error={!!formErrors.header}
+                helperText={formErrors.header}
+                required
                 />
             <select onChange={handleCategorySelect} required>
                 <option value="">--Choose a Category--</option>

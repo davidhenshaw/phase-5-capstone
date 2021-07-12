@@ -30,13 +30,13 @@ function LoginForm(props) {
         if (types)
         {
             return Object.keys(userLogin).map( (key, idx) => 
-                <TextField type={types[idx]} placeholder={key.split("_").join(" ")} name={key} value={userLogin[key]} onChange={handleChange} key={idx} /> 
+                <TextField required type={types[idx]} placeholder={key.split("_").join(" ")} name={key} value={userLogin[key]} onChange={handleChange} key={idx} /> 
             )
         }
         else
         {
             return Object.keys(userLogin).map( (key, idx) => 
-                <TextField placeholder={key.toUpperCase()} name={key} value={userLogin[key]} onChange={handleChange} key={idx} /> 
+                <TextField required placeholder={key.toUpperCase()} name={key} value={userLogin[key]} onChange={handleChange} key={idx} /> 
             )
         }
     }

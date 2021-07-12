@@ -11,6 +11,16 @@ function PostForm(props){
         message: ""
     })
 
+    const [formError, setFormError] = useState({
+        header: false,
+        message: false
+    })
+
+    const [formHelperText, setFormHelperText] = useState({
+        header: "",
+        message: ""
+    })
+
     const [isLoading, setIsLoading] = useState(false);
 
 
@@ -26,6 +36,12 @@ function PostForm(props){
     function handleSubmit(evt)
     {
         evt.preventDefault();
+        if(! validate())
+        {
+            return
+        }
+
+
         setIsLoading(true);
 
         let config = {
@@ -40,6 +56,12 @@ function PostForm(props){
             setIsLoading(false);
             clearForm();
         } )
+        .catch( handleServerError )
+    }
+
+    function handleServerError(err)
+    {
+        console.log(err.response);
     }
 
     function clearForm()
@@ -50,6 +72,39 @@ function PostForm(props){
         })
     }
 
+    function validate()
+    {
+        let didPass = true;
+        //Reset errors
+        setFormError({
+            header: false,
+            message: false
+        })
+    
+        setFormHelperText({
+            header: "",
+            message: ""
+        })
+
+        //Check for blank fields
+        Object.keys(post).forEach( key => {
+           if (! post[key])
+           {
+               didPass = false
+               setFormError({
+                   ...formError,
+                   [key]: true
+               })
+               setFormHelperText({
+                   ...formHelperText,
+                   [key]: "Cannot be blank"
+               })
+           }
+        })
+
+        return didPass
+    }
+
     return(
         <form onSubmit={handleSubmit} className={style["form-column-contained"]}>
             <TextField 
@@ -58,6 +113,8 @@ function PostForm(props){
                 value={post.header}
                 onChange={handleChange}
                 disabled={isLoading}
+                error={formError.header}
+                helperText={formHelperText.header}
                 />
             <TextField 
                 placeholder="What's up?" 
@@ -68,6 +125,8 @@ function PostForm(props){
                 value={post.message}
                 onChange={handleChange}
                 disabled={isLoading}
+                error={formError.message}
+                helperText={formHelperText.message}
                 />
             <Button disabled={isLoading} type="submit" variant="outlined">Post</Button>
         </form>
