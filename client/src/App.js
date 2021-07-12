@@ -16,7 +16,7 @@ import CategoryPage from './containers/CategoryPage';
 import UserProfilePage from './containers/UserProfilePage';
 import NavBar from './components/NavBar';
 
-import { createMuiTheme, ThemeProvider } from '@material-ui/core'
+import { createMuiTheme, ThemeProvider , makeStyles} from '@material-ui/core'
 import { purple } from '@material-ui/core/colors';
 import ProjectForm from './components/ProjectForm';
 
@@ -31,9 +31,19 @@ const theme = createMuiTheme({
     }
 })
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+      flexGrow: 1,
+      color: theme.palette.secondary.light,
+  },
+})
+);
+
 function App() {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const classes = useStyles();
 
   useEffect( () => {
     //setIsLoading(true)
