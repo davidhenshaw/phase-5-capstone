@@ -2,6 +2,23 @@
   text-align: center;
 }
 
+body {
+  background-color: rgb(233, 221, 233);
+}
+
+a:visited{
+  color:inherit;
+}
+
+a {
+  text-decoration: inherit;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

@@ -1,119 +1,139 @@
-import logo from './logo.svg';
 import './App.css';
-import { React, useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 import axios from 'axios';
+
+import SignupPage from './containers/SignupPage';
+import LoginPage from './containers/LoginPage';
+import PostFeed from './containers/PostFeed';
+import ProjectFeed from './containers/ProjectFeed';
+import ProjectPage from './containers/ProjectPage';
+import CategoryPage from './containers/CategoryPage';
+import UserProfilePage from './containers/UserProfilePage';
+import NavBar from './components/NavBar';
+
+import { createMuiTheme, ThemeProvider , makeStyles} from '@material-ui/core'
+import { purple } from '@material-ui/core/colors';
+import ProjectForm from './components/ProjectForm';
 import Markdown from 'markdown-to-jsx';
 
+const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#25CCF7'
+      },
+      secondary: {
+        main: '#EAB543'
+      },
+    }
+})
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+      flexGrow: 1,
+      color: theme.palette.secondary.light,
+  },
+})
+);
+
 function App() {
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [base64Img, setBase64Img] = useState(0);
-  const [users, setUsers] = useState([]);
-
-  function handleReaderLoad (readerEvt) {
-    let binaryString = readerEvt.target.result;
-    setBase64Img(btoa(binaryString));
-  }
-
-  function onChange (event){
-    console.log("file to upload:", event.target.files[0]);
-    let file = event.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onload = handleReaderLoad.bind(this);
-
-      reader.readAsBinaryString(file);
-    }
-  }
-
-  function onFileSubmit(event){
-    event.preventDefault();
-
-    let payload = {
-      avatar: base64Img
-    }
-
-    axios.patch(`/users/${users[0].id}`, payload)
-    .then( console.log )
-
-
-    console.log("binary string:", base64Img)
-  }
-
-  function displayUsers(users)
-  {
-    return users.map( (user, idx) => <User key={idx} userData={user} />)
-  }
+  const classes = useStyles();
 
   useEffect( () => {
-    axios.get("/users")
-    .then( res => setUsers(res.data))
-  }, [])
+    //setIsLoading(true)
+    autoLogin();
+  }, []);
+
+  function autoLogin()
+  {
+    let token = localStorage.token;
+    if(!token) { return undefined }
+
+    axios.post("/auto_login", {"token": token})
+    .then(res => {
+      setUser(res.data);
+      console.log(res)
+      setIsLoading(false);
+    })
+    .catch(err => {
+      setIsLoading(false);
+      console.log(err)
+    })
+  }
+
+  const handleLogin = (user) => 
+  {
+    setUser(user);
+  }
+
+  function handleLogout()
+  {
+    setUser(null);
+    localStorage.token = "";
+  }
+
+  if( isLoading )
+  {
+    // console.log(user);
+    return null
+  }
 
   return (
-    <div className="App">
-      <form onChange={onChange} onSubmit={onFileSubmit}>
-        <input 
-          type="file"
-          name="image"
-          id="file"
-          accept=".jpeg, .png, .jpg"
-        />
-        <input type="submit" />
-      </form>
-      Preview:
-      {
-        base64Img ?
-        <img alt="image preview" width="600" height="auto" src={"data:image/png;base64," + base64Img}/>
-        :
-        null
-      }
-      <Markdown># Hello world!</Markdown>
-      <Markdown>
-        {"+ item1\n+ item2\n\t+ item2b\n+ item3"}
-      </Markdown>
-      {
-        users ? 
-        displayUsers(users)
-        :
-        null
-      }
-    </div>
-  );
-}
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <Router>
 
-function User(props)
-{
-  let { id, username, avatar} = props.userData;
+          <NavBar onLogout={handleLogout} user={user}/>
 
-  return(
-    <span>
-      <p>{id + ': ' + username}</p> 
-      <img width="100" height="auto" alt="avatar" src={"data:image/png;base64," + avatar} /> 
-    </span>
-  )
-}
-
-
-function Placeholder() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Switch>
+            <Route path="/signup">
+              <SignupPage />
+            </Route>
+            <Route path="/login">
+              <div className="Form-page">
+                <LoginPage onLogin={handleLogin} />
+              </div>
+            </Route>
+            <Route path="/projects/:id">
+              <ProjectPage user={user}/>
+            </Route>
+            <Route path="/projects">
+              <ProjectFeed user={user}/>
+            </Route>
+            <Route path="/categories/:id">
+              <ProjectFeed user={user}/>
+            </Route>
+            <Route path="/categories">
+              <CategoryPage user={user} />
+            </Route>
+            <Route path="/new-project">
+              <ProjectForm user={user}/>
+            </Route>
+            <Route path="/profile">
+              <UserProfilePage user={user}/>
+            </Route>
+            <Route path="/">
+              {/* {
+                user ? 
+                <div>
+                  <h1>Welcome back, {user.display_name}!</h1>
+                </div>
+                :
+                <h1>Welcome! Please <a href="/login">log in.</a></h1>
+              } */}
+              <PostFeed user={user}/>
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    </ThemeProvider>
   );
 }
 

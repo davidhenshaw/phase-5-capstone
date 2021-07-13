@@ -1,0 +1,39 @@
+
+.post-feed{
+    margin: 0 auto;
+    /* border: 2px solid; */
+}
+
+.post-header {
+    float: left;
+    width: max-content;
+    /* border: 1px solid; */
+}
+
+.avatar {
+    float: left;
+    width: max-content;
+    padding-right: 10px;
+    /* border: 1px solid; */
+}
+.post-card {
+    text-align: left;
+    width: 625px;
+    margin: 15px;
+}
+
+.post-card p {
+    clear:both;
+    white-space: pre-wrap;
+    padding: 0px 15px;
+}
+
+.post-container {
+    width: 80%;
+    margin: 0 auto;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid;
+}
+
