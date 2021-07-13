@@ -4,13 +4,15 @@ import {
     Card, 
     Container,
     Collapse,
-    Typography
+    Typography,
+    Box,
 } from '@material-ui/core';
 
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
 import PostForm from './../components/PostForm.js';
+import UserAvatar from '../components/UserAvatar';
 
 function PostFeed(props)
 {
@@ -76,10 +78,13 @@ function PostCard(props)
     // let { avatar, username } = post.user;
     return(
         <Card raised={true} className={style["post-card"]}>
-            <Container component="div">
-                <Typography variant="h4" component="h1">{post.header}</Typography>
-                <Typography display="inline" variant="h6" component="h2">{post.user.username}</Typography>
-            </Container>
+            <Box className={style["avatar"]}>
+                <UserAvatar user={post.user}/>
+            </Box>
+            <Box className={style["post-header"]}>
+                <Typography variant="h5" component="h1">{post.header}</Typography>
+                <Typography variant="h6" component="h2">{post.user.username}</Typography>
+            </Box>
             <p>{post.message}</p>
         </Card>
     )

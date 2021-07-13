@@ -1,6 +1,8 @@
 import { Button, TextField } from '@material-ui/core';
 import axios from 'axios';
 import { React, useEffect, useState } from 'react';
+import UserAvatar from '../components/UserAvatar';
+
 import style from './../common/styles/profile.module.css';
 
 function UserProfilePage(props){
@@ -120,7 +122,10 @@ function UserProfilePage(props){
 
     return(
         <div className={style["profile-page"]}>
-            <h1>{tempUser.username}</h1>
+            <div className={style["header"]}>
+                <UserAvatar user={user} />
+                <h1>{tempUser.username}</h1>
+            </div>
             {table()}
         </div>
     )

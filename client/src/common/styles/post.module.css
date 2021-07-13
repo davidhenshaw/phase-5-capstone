@@ -1,8 +1,21 @@
+
 .post-feed{
     margin: 0 auto;
     /* border: 2px solid; */
 }
 
+.post-header {
+    float: left;
+    width: max-content;
+    /* border: 1px solid; */
+}
+
+.avatar {
+    float: left;
+    width: max-content;
+    padding-right: 10px;
+    /* border: 1px solid; */
+}
 .post-card {
     text-align: left;
     width: 625px;
@@ -10,6 +23,7 @@
 }
 
 .post-card p {
+    clear:both;
     white-space: pre-wrap;
     padding: 0px 15px;
 }
