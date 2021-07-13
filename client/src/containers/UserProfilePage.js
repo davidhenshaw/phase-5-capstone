@@ -2,6 +2,7 @@ import { Button, TextField } from '@material-ui/core';
 import axios from 'axios';
 import { React, useEffect, useState } from 'react';
 import UserAvatar from '../components/UserAvatar';
+import Resizer from 'react-image-file-resizer';
 
 import style from './../common/styles/profile.module.css';
 
@@ -59,37 +60,52 @@ function UserProfilePage(props){
         setTempUser(newUser);
     }
 
-    function handleReaderLoad (readerEvt) {
-        let binaryString = readerEvt.target.result;
-        setBase64Img(btoa(binaryString));
-    }
-
-    function onChange (event){
+    function onAvatarChange (event){
         console.log("file to upload:", event.target.files[0]);
         let file = event.target.files[0];
     
         if (file) {
-          const reader = new FileReader();
-    
-          reader.onload = handleReaderLoad.bind(this);
-    
-          reader.readAsBinaryString(file);
+            resizeFile(file);
         }
     }
     
-    function onFileSubmit(event){
+    function onAvatarSubmit(event){
         event.preventDefault();
+
+        let config = {
+            headers:{
+                Authorization: `Bearer ${localStorage.token}`
+            }
+        }
 
         let payload = {
             avatar: base64Img
         }
 
-        axios.patch(`/users/${user.id}`, payload)
+        axios.patch(`/users/${user.id}`, payload, config)
         .then( console.log )
 
 
         console.log("binary string:", base64Img)
     }
+
+    const resizeFile = (file) =>
+        new Promise((resolve) => {
+            Resizer.imageFileResizer(
+                file,
+                128,
+                128,
+                "JPEG",
+                100,
+                0,
+                (uri) => {
+                    //resolve(uri);
+                    console.log(uri);
+                    setBase64Img(uri);
+                },
+                "base64"
+            );
+    });
 
     const table = () => {
         return(
@@ -152,7 +168,7 @@ function UserProfilePage(props){
     const pictureForm = () => {
         return (
             <div>
-                <form onChange={onChange} onSubmit={onFileSubmit}>
+                <form onChange={onAvatarChange} onSubmit={onAvatarSubmit}>
                     <input 
                     type="file"
                     name="image"
@@ -164,7 +180,7 @@ function UserProfilePage(props){
                 Preview:
                 {
                     base64Img ?
-                    <img alt="image preview" width="600" height="auto" src={"data:image/png;base64," + base64Img}/>
+                    <img alt="preview" src={base64Img}/>
                     :
                     null
                 }

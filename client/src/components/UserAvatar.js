@@ -13,7 +13,7 @@ function UserAvatar(props) {
 
     return (
         avatar ?
-            <Avatar src={"data:image/png:base64," + avatar} />
+            <Avatar src={avatar} />
             :
             <Avatar>{userInitials()}</Avatar>
     );
