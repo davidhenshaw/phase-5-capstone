@@ -14,11 +14,11 @@ import ProjectFeed from './containers/ProjectFeed';
 import ProjectPage from './containers/ProjectPage';
 import CategoryPage from './containers/CategoryPage';
 import UserProfilePage from './containers/UserProfilePage';
+import CreateProjectPage from './containers/CreateProjectPage';
 import NavBar from './components/NavBar';
 
 import { createMuiTheme, ThemeProvider , makeStyles} from '@material-ui/core'
 import { purple } from '@material-ui/core/colors';
-import ProjectForm from './components/ProjectForm';
 import Markdown from 'markdown-to-jsx';
 
 const theme = createMuiTheme({
@@ -112,7 +112,7 @@ function App() {
               <CategoryPage user={user} />
             </Route>
             <Route path="/new-project">
-              <ProjectForm user={user}/>
+              <CreateProjectPage user={user}/>
             </Route>
             <Route path="/profile">
               <UserProfilePage user={user}/>

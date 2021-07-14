@@ -1,9 +1,26 @@
 import React from "react";
 import { useState, useEffect } from 'react';
 import axios from 'axios'
-import { Button, TextField } from "@material-ui/core";
+import { Button, MenuItem, Select, TextField, makeStyles, InputLabel, FormControl } from "@material-ui/core";
 import style from './../common/styles/form.module.css';
 import { useHistory } from "react-router";
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: "flex",
+        flexDirection: "column",
+        flexGrow: 1,
+        backgroundColor: theme.palette.background.paper,
+        borderRadius: theme.shape.borderRadius,
+        padding: theme.spacing(2)
+    },
+    field:{
+        margin: theme.spacing(3),
+        minWidth: 120,
+    }
+  })
+  );
 
 function ProjectForm(props)
 {
@@ -28,7 +45,7 @@ function ProjectForm(props)
     const [categories, setCategories] = useState([]);
 
     const history = useHistory();
-
+    let classes = useStyles();
 
     useEffect( () => {
 
@@ -125,10 +142,10 @@ function ProjectForm(props)
     {
         return categories.map( (category, idx) => {
             if( projectEdit && category.id == projectEdit.category.id ){
-                return <option selected={true} value={category.id} key={idx}>{category.name}</option>
+                return <MenuItem selected={true} value={category.id} key={idx}>{category.name}</MenuItem>
             }
             else{
-                return <option value={category.id} key={idx}>{category.name}</option>
+                return <MenuItem value={category.id} key={idx}>{category.name}</MenuItem>
             }
         })
     }
@@ -142,9 +159,10 @@ function ProjectForm(props)
     }
 
     return(
-        <form onSubmit={handleSubmit} className={style["form-column-contained"]}>
+        <form onSubmit={handleSubmit} className={classes.root}>
             <TextField 
-                placeholder="Project Name" 
+                className={classes.field}
+                label="Project Name" 
                 name="name" 
                 value={project.name}
                 onChange={handleChange}
@@ -154,7 +172,8 @@ function ProjectForm(props)
                 required
                 />
             <TextField 
-                placeholder="Project Header" 
+                className={classes.field}
+                label="Project Header" 
                 name="header" 
                 value={project.header}
                 onChange={handleChange}
@@ -163,12 +182,17 @@ function ProjectForm(props)
                 helperText={formErrors.header}
                 required
                 />
-            <select onChange={handleCategorySelect} required>
-                <option value="">--Choose a Category--</option>
-                {generateCategoryOptions()}
-            </select>
+            <FormControl className={classes.field}>
+                <InputLabel>Category</InputLabel>
+                <Select 
+                    onChange={handleCategorySelect} 
+                    required>
+                    {generateCategoryOptions()}
+                </Select>
+            </FormControl>
             <TextField 
-                placeholder="Description" 
+                className={classes.field}
+                label="Description" 
                 name="description"
                 rows={4} 
                 multiline 

@@ -1,3 +1,11 @@
+body{
+    background-image: url(https://www.jamesgmartin.center/wp-content/uploads/2020/08/AdobeStock_303771925-1024x683.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
 .member-list{
     border: 2px solid;
     border-radius: 10px;
