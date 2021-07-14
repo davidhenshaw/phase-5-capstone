@@ -1,4 +1,13 @@
-import { Button, TextField } from '@material-ui/core';
+import { 
+    Button, 
+    makeStyles,
+    Table,
+    TableHead,
+    TableBody,
+    TableRow,
+    TableCell,
+    TableContainer,
+     TextField } from '@material-ui/core';
 import axios from 'axios';
 import { React, useEffect, useState } from 'react';
 import UserAvatar from '../components/UserAvatar';
@@ -6,12 +15,38 @@ import Resizer from 'react-image-file-resizer';
 
 import style from './../common/styles/profile.module.css';
 
+const useStyles = makeStyles((theme) => ({
+    root:{
+    },
+    header: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(3),
+        marginLeft: "auto",
+        marginRight: "auto",
+        backgroundColor: theme.palette.grey.A100,
+    },
+    table: {
+        backgroundColor: theme.palette.background.paper,
+        width: 650,
+        borderRadius: theme.shape.borderRadius * 2,
+    },
+  })
+);
+  
+
+
 function UserProfilePage(props){
 
     let { user } = props;
     const [isEditMode, setIsEditMode] = useState(false);
     const [tempUser, setTempUser] = useState(user);
     const [base64Img, setBase64Img] = useState(0);
+
+    let classes = useStyles();
 
     function handleChange(evt)
     {
@@ -70,7 +105,7 @@ function UserProfilePage(props){
     }
     
     function onAvatarSubmit(event){
-        event.preventDefault();
+        event.prevenTableCellefault();
 
         let config = {
             headers:{
@@ -86,7 +121,7 @@ function UserProfilePage(props){
         .then( console.log )
 
 
-        console.log("binary string:", base64Img)
+        console.log("binary sTableRowing:", base64Img)
     }
 
     const resizeFile = (file) =>
@@ -110,56 +145,58 @@ function UserProfilePage(props){
     const table = () => {
         return(
             <form onSubmit={handleSubmit}>
-                <table>
-                    <thead>
-                        <tr>
-                            <th colSpan="2"> Account Info </th> 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Display Name</td>
-                            <td>
-                                {generateInput("display_name")}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td>
-                                {generateInput("email")}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Bio</td>
-                            <td>
-                                {generateInput("bio")}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Twitter</td>
-                            <td>
-                                {generateInput("twitter_name")}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Instagram</td>
-                            <td>
-                                {generateInput("instagram_name")}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Youtube</td>
-                            <td>
-                                {generateInput("youtube_name")}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <TableContainer className={classes.root}>
+                    <Table className={classes.table}>
+                        <TableHead>
+                            <TableRow>
+                                <th colSpan="2"> Account Info </th> 
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell>Display Name</TableCell>
+                                <TableCell>
+                                    {generateInput("display_name")}
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>Email</TableCell>
+                                <TableCell>
+                                    {generateInput("email")}
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>Bio</TableCell>
+                                <TableCell>
+                                    {generateInput("bio")}
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>Twitter</TableCell>
+                                <TableCell>
+                                    {generateInput("twitter_name")}
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>Instagram</TableCell>
+                                <TableCell>
+                                    {generateInput("instagram_name")}
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>Youtube</TableCell>
+                                <TableCell>
+                                    {generateInput("youtube_name")}
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
                 {
                     isEditMode ?
-                    <Button type="submit" variant="outlined">Save</Button>
+                    <Button type="submit" variant="contained">Save</Button>
                     :
-                    <Button variant="outlined" onClick={handleEdit}>Edit</Button>
+                    <Button variant="contained" onClick={handleEdit}>Edit</Button>
                 }
             </form>
             )
@@ -194,7 +231,7 @@ function UserProfilePage(props){
 
     return(
         <div className={style["profile-page"]}>
-            <div className={style["header"]}>
+            <div className={classes.header}>
                 {
                     isEditMode ?
                     pictureForm()

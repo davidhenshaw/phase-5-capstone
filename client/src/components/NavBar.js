@@ -88,7 +88,9 @@ function NavBar(props)
                     </Link>
                     {
                         user ? 
-                        <Link to="/new-project" className={classes.menuButton}>Start Project!</Link>
+                        <Typography>
+                            <Link to="/new-project" className={classes.menuButton}>Start Project!</Link>
+                        </Typography>
                         :
                         null
                     }
