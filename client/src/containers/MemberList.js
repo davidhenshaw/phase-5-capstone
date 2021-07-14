@@ -3,6 +3,7 @@ import UserSearchForm  from "../components/UserSearchForm";
 import axios from "axios";
 
 import style from '../common/styles/project.module.css'
+import { ListItem, ListItemAvatar } from "@material-ui/core";
 
 function MemberList(props) {
     let { members , onMemberAdd, onMemberRemove, project, writePermission } = props;
@@ -26,7 +27,15 @@ function MemberList(props) {
         <div className={style["member-list"]}>
             <h2>Collaborators:</h2>
             {}
-            {members.map((member, idx) => <MemberCard writePermission={writePermission} onMemberRemove={handleMemberRemove} member={member} key={idx}/>)}
+            {
+                members.map((member, idx) => {
+                    return (
+                    <ListItem>
+                        <MemberCard writePermission={writePermission} onMemberRemove={handleMemberRemove} member={member} key={idx}/>
+                    </ListItem>
+                    )
+                })
+            }
             {
                 writePermission ? 
                 <UserSearchForm 

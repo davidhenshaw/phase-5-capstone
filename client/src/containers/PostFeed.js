@@ -6,6 +6,7 @@ import {
     Collapse,
     Typography,
     Box,
+    Divider,
 } from '@material-ui/core';
 
 import React, { useEffect, useState } from "react";
@@ -83,9 +84,9 @@ function PostCard(props)
             </Box>
             <Box className={style["post-header"]}>
                 <Typography variant="h5" component="h1">{post.header}</Typography>
-                <Typography variant="h6" component="h2">{post.user.username}</Typography>
+                <Typography variant="subtitle2" component="h2">{post.user.username}</Typography>
             </Box>
-            <p>{post.message}</p>
+            <Typography variant="body1">{post.message}</Typography>
         </Card>
     )
 }

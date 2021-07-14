@@ -115,6 +115,7 @@ function PostForm(props){
                 disabled={isLoading}
                 error={formError.header}
                 helperText={formHelperText.header}
+                variant="filled"
                 />
             <TextField 
                 placeholder="What's up?" 
@@ -127,8 +128,9 @@ function PostForm(props){
                 disabled={isLoading}
                 error={formError.message}
                 helperText={formHelperText.message}
+                variant="filled"
                 />
-            <Button disabled={isLoading} type="submit" variant="outlined">Post</Button>
+            <Button disabled={isLoading} type="submit" variant="contained">Post</Button>
         </form>
     )
 }

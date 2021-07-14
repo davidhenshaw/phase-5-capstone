@@ -1,5 +1,6 @@
 .member-list{
     border: 2px solid;
+    border-radius: 10px;
     margin: 0 auto;
     width: 500px;
 }

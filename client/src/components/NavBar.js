@@ -19,6 +19,7 @@ import { ThemeProvider } from '@material-ui/styles';
 const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
+            marginBottom: theme.spacing(4),
         },
         text: {
             color: theme.palette.text.primary,

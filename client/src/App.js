@@ -22,14 +22,14 @@ import ProjectForm from './components/ProjectForm';
 import Markdown from 'markdown-to-jsx';
 
 const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: '#25CCF7'
-      },
-      secondary: {
-        main: '#EAB543'
-      },
-    }
+    // palette: {
+    //   primary: {
+    //     main: '#25CCF7'
+    //   },
+    //   secondary: {
+    //     main: '#EAB543'
+    //   },
+    // }
 })
 
 const useStyles = makeStyles((theme) => ({
@@ -44,10 +44,8 @@ function App() {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const classes = useStyles();
-
   useEffect( () => {
-    //setIsLoading(true)
+    setIsLoading(true)
     autoLogin();
   }, []);
 
@@ -59,12 +57,12 @@ function App() {
     axios.post("/auto_login", {"token": token})
     .then(res => {
       setUser(res.data);
-      console.log(res)
+      // console.log(res)
       setIsLoading(false);
     })
     .catch(err => {
       setIsLoading(false);
-      console.log(err)
+      // console.log(err)
     })
   }
 
@@ -81,7 +79,7 @@ function App() {
 
   if( isLoading )
   {
-    // console.log(user);
+    console.log("isLoading", isLoading);
     return null
   }
 
@@ -120,14 +118,6 @@ function App() {
               <UserProfilePage user={user}/>
             </Route>
             <Route path="/">
-              {/* {
-                user ? 
-                <div>
-                  <h1>Welcome back, {user.display_name}!</h1>
-                </div>
-                :
-                <h1>Welcome! Please <a href="/login">log in.</a></h1>
-              } */}
               <PostFeed user={user}/>
             </Route>
           </Switch>

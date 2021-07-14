@@ -14,6 +14,8 @@ import MemberList from "./MemberList";
 import { Button } from "@material-ui/core";
 import ProjectForm from "../components/ProjectForm";
 
+import style from '../common/styles/project.module.css';
+
 function ProjectPage(props)
 {
     let {id} = useParams();
