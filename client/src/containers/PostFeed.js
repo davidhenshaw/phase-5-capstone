@@ -1,12 +1,13 @@
 import style from './../common/styles/post.module.css';
 import { 
+    Box,
     Button,
     Card, 
     Container,
     Collapse,
-    Typography,
-    Box,
     Divider,
+    makeStyles,
+    Typography,
 } from '@material-ui/core';
 
 import React, { useEffect, useState } from "react";
@@ -15,12 +16,31 @@ import axios from 'axios';
 import PostForm from './../components/PostForm.js';
 import UserAvatar from '../components/UserAvatar';
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+        backgroundColor: theme.palette.text.secondary,
+    },
+    leftFloat: {
+        float: "left",
+        position: "fixed",
+        marginTop: theme.spacing(2),
+        marginLeft: theme.spacing(12) * -1,
+        padding: theme.spacing(1),
+        width: "500px",
+        borderRadius: theme.shape.borderRadius * 2,
+        backgroundColor: theme.palette.background.default,
+    }
+  })
+  );
+
 function PostFeed(props)
 {
     let { user } = props;
     const [posts, setPosts] = useState([]);
     const [formOpen, setFormOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    let classes = useStyles();
 
     useEffect( () => {
         axios.get("/posts")
@@ -40,7 +60,7 @@ function PostFeed(props)
     }
     
     const postSection = (
-        <div className={style["post-form-container"]}>
+        <div className={classes.leftFloat}>
             <Button variant="outlined" onClick={toggleFormOpen}>
                 {formOpen ? "Close" : "Make a Post!"}
             </Button>

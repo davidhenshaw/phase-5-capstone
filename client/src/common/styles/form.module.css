@@ -24,16 +24,17 @@
     flex-direction: column;
     align-items: center;
     padding: 25px;
-    border: 5px solid #282c34 ;
+    /* border: 5px solid #282c34 ; */
   }
 
   .form-column-contained{
-    width: 75%;
-    height: 100%;
+    width: 85%;
+    height: 250px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     /* border: 5px solid #282c34 ; */
-    margin: 0 auto;
+    margin: 10px auto;
   }
   
   .form-column-contained button{

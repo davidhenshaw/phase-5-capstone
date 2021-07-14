@@ -2,6 +2,7 @@ import style from './../common/styles/project.module.css';
 import { 
     Card, 
     Container,
+    makeStyles,
     Typography
 } from '@material-ui/core';
 
@@ -9,12 +10,21 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+        backgroundColor: theme.palette.text.secondary,
+    },
+  })
+  );
 
 function ProjectFeed(props)
 {
     let { id: category_id } = useParams();
     const [projects, setProjects] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+
+    let classes = useStyles();
 
       useEffect( () => {
             getProjects();
@@ -39,7 +49,7 @@ function ProjectFeed(props)
 
 
     return(
-        <div className={style["post-feed"]}>
+        <div className={classes.root}>
             {
                 isLoading ?
                 <h1>Loading...</h1>

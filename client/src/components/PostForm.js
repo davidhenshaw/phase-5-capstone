@@ -1,10 +1,20 @@
 import React from "react";
 import { useState } from 'react';
 import axios from 'axios'
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextField, makeStyles} from "@material-ui/core";
 import style from './../common/styles/form.module.css';
 
-function PostForm(props){
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+        backgroundColor: theme.palette.text.secondary,
+    },
+  })
+  );
+
+function PostForm(props)
+{
+    let classes = useStyles();
     let { onSubmitSuccess } = props;
     const [post, setPost] = useState({
         header: "",
