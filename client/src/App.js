@@ -52,7 +52,10 @@ function App() {
   function autoLogin()
   {
     let token = localStorage.token;
-    if(!token) { return undefined }
+    if(!token) { 
+      setIsLoading(false);
+      return undefined 
+    }
 
     axios.post("/auto_login", {"token": token})
     .then(res => {

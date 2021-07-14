@@ -85,6 +85,10 @@ function UserProfilePage(props){
 
         let payload = tempUser;
 
+        if(base64Img){
+            payload['avatar'] = base64Img;
+        }
+
         axios.patch(`/users/${user.id}`, payload, config)
         .then( res => onSubmitSuccess(res.data) )
     }
@@ -100,12 +104,13 @@ function UserProfilePage(props){
         let file = event.target.files[0];
     
         if (file) {
-            resizeFile(file);
+            cacheImage(file);
         }
     }
     
     function onAvatarSubmit(event){
-        event.prevenTableCellefault();
+        event.preventDefault();
+        setIsEditMode(false);
 
         let config = {
             headers:{
@@ -124,7 +129,7 @@ function UserProfilePage(props){
         console.log("binary sTableRowing:", base64Img)
     }
 
-    const resizeFile = (file) =>
+    const cacheImage = (file) =>
         new Promise((resolve) => {
             Resizer.imageFileResizer(
                 file,
@@ -212,7 +217,7 @@ function UserProfilePage(props){
                     id="file"
                     accept=".jpeg, .png, .jpg"
                     />
-                    <input type="submit" />
+                    {/* <input type="submit" /> */}
                 </form>
                 Preview:
                 {

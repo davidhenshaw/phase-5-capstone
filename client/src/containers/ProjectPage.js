@@ -11,10 +11,53 @@ import {
 
 import axios from 'axios';
 import MemberList from "./MemberList";
-import { Button } from "@material-ui/core";
+import { 
+    Button, 
+    Container,
+    Divider,
+    makeStyles,
+    Typography,
+} from "@material-ui/core";
 import ProjectForm from "../components/ProjectForm";
 
 import style from '../common/styles/project.module.css';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+        backgroundColor: theme.palette.grey[200],
+        borderRadius: theme.shape.borderRadius,
+        padding: theme.spacing(1),
+    },
+    header:{
+        textAlign: "left",
+        marginBottom: theme.spacing(1),
+    },
+    title: {
+        textAlign: 'left',
+    },
+    body: {
+        textAlign: 'left',
+        overflowY: 'auto',
+        maxHeight: "15rem",
+        marginBottom: theme.spacing(2),
+    },
+    section: {
+        // float: "left",
+        margin: theme.spacing(3),
+        width: "80%",
+        // border: "1px solid",
+    },
+    smallSection: {
+        
+    },
+    grid: {
+        display: "grid",
+        gridTemplateColumns: "1fr 5fr",
+        marginBottom: theme.spacing(2),
+    }
+  })
+);
 
 function ProjectPage(props)
 {
@@ -23,6 +66,8 @@ function ProjectPage(props)
     const [project, setProject] = useState({})
     const [isLoading, setIsLoading] = useState(true);
     const [isEditMode, setIsEditMode] = useState(false);
+
+    let classes = useStyles();
 
     useEffect( fetchProject, [] );
 
@@ -108,45 +153,57 @@ function ProjectPage(props)
     }
     
     return(
-        <div>
+        <Container className={classes.root}>
             <ProjectInfo project={project} />
+            <Divider variant="middle" />
             {
                 project.is_member ? 
                 editorView()
                 :
                 null
             }
-            {
-                isLoading ? 
-                <h2>Loading...</h2>
-                :
-                <MemberList
-                    writePermission={project.is_member}
-                    project={project}
-                    onMemberAdd={handleMemberAdd}
-                    onMemberRemove={handleMemberRemove}
-                    members={project.members} /> 
-            }
-            <br></br>
-            <br></br>
-            <br></br>
+            <div className={classes.grid}>
+                {
+                    isLoading ? 
+                    <h2>Loading...</h2>
+                    :
+                    <Container className={classes.smallSection}>
+                        <MemberList
+                            writePermission={project.is_member}
+                            project={project}
+                            onMemberAdd={handleMemberAdd}
+                            onMemberRemove={handleMemberRemove}
+                            members={project.members} />
+                    </Container>
+                }
+                <Container className={classes.section}>
+                    <Typography variant="h4" className={classes.title}>
+                        Description
+                    </Typography>
+                    <Typography variant="body1" className={classes.body}>
+                        {project.description}
+                    </Typography>
+                </Container>
+            </div> 
             {
                 project.is_member ?
                 <Button variant="outlined" onClick={handleDelete}>Delete Project</Button>
                 :
                 null
             }
-        </div>
+        </Container>
     )
 }
 
 function ProjectInfo( {project} )
 {
+    let classes = useStyles();
+
     return(
-        <div>
-            <h1>{project.name}</h1>
-            <p>{project.description}</p>
-        </div>
+        <Container className={classes.header}>
+            <Typography variant="h2">{project.name}</Typography>
+            <Typography variant="body1">{project.header}</Typography>
+        </Container>
     )
 }
 
