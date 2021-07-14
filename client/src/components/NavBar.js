@@ -15,6 +15,8 @@ import {
 
 import { ThemeProvider } from '@material-ui/styles';
 
+import logo from "./../GO_LAB_fullLogo.png"
+
 
 const useStyles = makeStyles((theme) => ({
         root: {
@@ -71,6 +73,7 @@ function NavBar(props)
         <div className={classes.root}>
             <AppBar position="relative">
                 <Toolbar className={classes.container}>
+                    <img alt="logo" src={logo} width="auto" height="100" />
                     <Link to="/" className={classes.menuButton}>
                         <Typography >
                             Home
