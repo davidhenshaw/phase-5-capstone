@@ -7,7 +7,9 @@ import {
     TableRow,
     TableCell,
     TableContainer,
-     TextField } from '@material-ui/core';
+    TextField,
+    Typography,
+    } from '@material-ui/core';
 import axios from 'axios';
 import { React, useEffect, useState } from 'react';
 import UserAvatar from '../components/UserAvatar';
@@ -62,7 +64,17 @@ function UserProfilePage(props){
             isEditMode ?
             <TextField name={key} value={tempUser[key]} onChange={handleChange}/>
             :
-            tempUser[key]
+            <Typography>{tempUser[key]}</Typography>
+        )
+    }
+
+    function generateInput(key, maxLines=1)
+    {
+        return(
+            isEditMode ?
+            <TextField multiline rows={maxLines} name={key} value={tempUser[key]} onChange={handleChange}/>
+            :
+            <Typography>{tempUser[key]}</Typography>
         )
     }
 
@@ -173,7 +185,7 @@ function UserProfilePage(props){
                             <TableRow>
                                 <TableCell>Bio</TableCell>
                                 <TableCell>
-                                    {generateInput("bio")}
+                                    {generateInput("bio", 3)}
                                 </TableCell>
                             </TableRow>
                             <TableRow>
