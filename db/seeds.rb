@@ -35,7 +35,7 @@ require 'faker'
 prng = Random.new
 
 # Configs
-num_users = 5
+num_users = 3
 post_per_user = 2
 num_categories = 5
 num_projects = 5
@@ -53,7 +53,6 @@ User.destroy_all
 Post.destroy_all
 
 puts "Generating users..."
-passwords = ["wordpass", "asswordpay", "wordymcpass", "paswad", "motdepasse"]
 
 num_users.times do |i|
     display_name = Faker::Name.name
@@ -80,21 +79,72 @@ num_users.times do |i|
 end
 
 puts "Generating categories..."
-5.times do |i|
-    name = Faker::SlackEmoji.activity
-    name.gsub!(/:/, "") # Remove the : at the beginning and end of emoji name
-    name.gsub!(/[_-]/, " ") #Replace underscores and dashes with spaces
-    name.capitalize!
-    category = Category.create(name: name)
+games = Category.create(name: "Games")
+tech = Category.create(name: "Tech")
+diy = Category.create(name: "DIY")
+music = Category.create(name: "Music")
+art = Category.create(name: "Visual Art")
+writing = Category.create(name: "Writing")
+film = Category.create(name: "Film")
+
+Category.all.each do |category|
     categories << category
 end
 
+# 5.times do |i|
+#     name = Faker::SlackEmoji.activity
+#     name.gsub!(/:/, "") # Remove the : at the beginning and end of emoji name
+#     name.gsub!(/[_-]/, " ") #Replace underscores and dashes with spaces
+#     name.capitalize!
+#     category = Category.create(name: name)
+#     categories << category
+# end
+
 puts "Generating projects..."
+num_paragraphs = 5
+project_params = {
+    category_id: games.id,
+    name: "Temp",
+    header: "We're building an action game about a temp agent from Mars",
+    description: Faker::Lorem.paragraphs(num_paragraphs).join      
+}
+Project.create(project_params)
+
+project_params = {
+    category_id: tech.id,
+    name: "Caged",
+    header: "Making a website to compile all Nicholas Cage films",
+    description: Faker::Lorem.paragraphs(num_paragraphs).join       
+}
+Project.create(project_params)
+
+project_params = {
+    category_id: music.id,
+    name: "A24 Music Group",
+    header: "Writing a soundtrack for an indie film project",
+    description: Faker::Lorem.paragraphs(num_paragraphs).join       
+}
+Project.create(project_params)
+
+project_params = {
+    category_id: art.id,
+    name: "The Adventure Zone: Ethersea Animation",
+    header: "Making an original animation featuring the TAS cast!",
+    description: Faker::Lorem.paragraphs(num_paragraphs).join       
+}
+Project.create(project_params)
+
+Project.all.each do |project|
+    projects << project
+end
+
+
 num_projects.times do |i|
     project_params = {
-        category_id: categories[prng.rand(num_categories)].id,
+        category_id: categories[prng.rand(categories.count)].id,
         name: Faker::App.name,
-        description: Faker::Hipster.paragraph(2)       
+        header: Faker::Hipster.sentence(1),
+        description: Faker::Hipster.paragraph(num_paragraphs)       
     }
 
     project = Project.create!(project_params)
@@ -102,13 +152,12 @@ num_projects.times do |i|
 end
 
 puts "Populating projects with a member..."
-num_projects.times do |i|
+projects.count.times do |i|
     random_user = users[prng.rand(num_users)]
     member_params = {
         user_id: random_user.id,
         project_id: projects[i].id,
     }
-
     member = Member.create!(member_params)
     members << member
 end
