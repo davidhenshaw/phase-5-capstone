@@ -6,6 +6,7 @@ ruby "2.7.3"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
 # Use postgresql as the database for Active Record
+# postgresql gem relies on the libpq-dev package. If pg 1.2.3 fails during bundle install, try `sudo apt-get install libpq-dev`
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'

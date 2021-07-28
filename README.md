@@ -189,6 +189,7 @@ troubleshoot:
   your application works locally and try to debug any issues on your local
   machine before re-deploying. You can also check the logs on the server by
   running `heroku logs`.
+- The postgresql gem relies on the `libpq-dev` package. If `pg 1.2.3` fails during bundle install, try the command: `sudo apt-get install libpq-dev`
 
 For additional support, check out these guides on Heroku:
 
